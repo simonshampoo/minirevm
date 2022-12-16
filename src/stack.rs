@@ -1,13 +1,21 @@
+use crate::storage::Bytes32;
+
 struct Stack {
     stack: Vec<Bytes32>,
 }
 
 impl Stack {
     fn new(&self) -> Self {
-        Stack { stack: Vec<u8>::new() }
+        Stack {
+            stack: Vec::<Bytes32>::new(),
+        }
     }
 
-    fn push(&mut self, value: Bytes32) -> Self {
-        self.stack.push(value)
+    fn push(&mut self, value: Bytes32) {
+        self.stack.push(value);
+    }
+
+    fn pop(&mut self) {
+        self.stack.pop();
     }
 }
