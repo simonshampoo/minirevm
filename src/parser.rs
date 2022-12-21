@@ -1,5 +1,3 @@
-#![feature(is_some_with)]
-
 use evm::Opcode;
 use std::collections::BTreeMap;
 type PushData = String;
@@ -9,31 +7,30 @@ pub struct Parser {
 }
 
 impl Parser {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Parser {
             instructions: BTreeMap::new(),
         }
     }
-    fn parse(bytecode: &String) {
-        let free_mem_ptr_i12n = &bytecode.as_bytes()[..2]; // this shit better be 60 bro
+    pub fn parse(&self, bytecode: &String) {
+        let codesize = bytecode.len();
 
-        for (i, c) in bytecode.chars().enumerate() {
+        if codesize == 0 {
+            panic!("no bytecode provided")
+        }
+        let mut i = 0;
+
+        while i < bytecode.len() - 2 {
             let opcode = str::from_utf8(&bytecode.as_bytes()[i..i + 2]);
+            i += 2;
 
-            if !opcode.is_ok() {
-                panic!("FUCK")
-            }
+            println!("OPCODE: {}", opcode.unwrap());
+            /*
 
-            let free_mem_ptr_initialization = match opcode {
-                Ok(_) => "60",
-                Err(error) => panic!(
-                    "Didn't initialize free memory pointer in your bytecode. Go to jail. {}",
-                    error
-                ),
-            };
-            if opcode.unwrap() != "60" {
-                todo!("idk haven't done this yet. usually solidity contracts start with 6040 to initialize free mem pointer so u doing some freaky stuff")
-            }
+            now we check if the opcode is one that takes a stack param.
+            and in the case that it does, we see how many it takes.
+
+            */
         }
     }
 }
