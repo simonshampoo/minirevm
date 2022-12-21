@@ -16,7 +16,7 @@ impl Parser {
     }
     fn parse(bytecode: &String) {
         let free_mem_ptr_i12n = &bytecode.as_bytes()[..2]; // this shit better be 60 bro
-        
+
         for (i, c) in bytecode.chars().enumerate() {
             let opcode = str::from_utf8(&bytecode.as_bytes()[i..i + 2]);
 
@@ -34,8 +34,6 @@ impl Parser {
             if opcode.unwrap() != "60" {
                 todo!("idk haven't done this yet. usually solidity contracts start with 6040 to initialize free mem pointer so u doing some freaky stuff")
             }
-
-            match opcode {}
         }
     }
 }
