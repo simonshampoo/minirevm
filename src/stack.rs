@@ -1,6 +1,6 @@
 use crate::storage::Bytes32;
 
-struct Stack {
+pub struct Stack {
     stack: Vec<Bytes32>,
 }
 

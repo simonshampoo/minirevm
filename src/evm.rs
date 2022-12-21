@@ -1,7 +1,6 @@
-use minirevm::memory;
-use minirevm::opcodes;
-use minirevm::stack;
-use minirevm::storage;
+use crate::memory::Memory;
+use crate::stack::Stack;
+use crate::storage::Storage;
 struct EVM {
     stack: Stack,
     memory: Memory,
