@@ -1,8 +1,7 @@
+use crate::types::Instruction;
 use evm::Opcode;
 use std::str;
 
-type PushData = String;
-type Instruction = (Opcode, Option<Vec<PushData>>);
 pub struct Parser {
     instructions: Vec<Instruction>,
 }
