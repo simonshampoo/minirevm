@@ -1,20 +1,16 @@
-use std::env;
 use minirevm::evm::EVM;
+use std::env;
 fn main() {
     let args: Vec<String> = env::args().collect();
 
     println!("{}", args.len());
 
-    if args.len() > 2 {
+    if args.len() > 2 || args.len() == 1 {
         panic!("incorrect argument length")
     }
 
-    let bytecode = args[1]; 
+    let bytecode = args[1];
 
-
-    let evm = EVM {
-
-    };
     /*
 
 

@@ -12,6 +12,9 @@ impl Stack {
     }
 
     fn push(&mut self, value: Bytes32) {
+        if (self.stack.len() > 1024) {
+            panic!("Stack too deep")
+        }
         self.stack.push(value);
     }
 
