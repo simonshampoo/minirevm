@@ -1,4 +1,4 @@
-use crate::minirevm::Bytes32;
+use crate::storage::Bytes32;
 
 struct Memory {
     memory: Vec<Bytes32>,
