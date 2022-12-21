@@ -5,20 +5,20 @@ pub struct Stack {
 }
 
 impl Stack {
-    fn new(&self) -> Self {
+    pub fn new() -> Self {
         Stack {
             stack: Vec::<Bytes32>::new(),
         }
     }
 
-    fn push(&mut self, value: Bytes32) {
-        if (self.stack.len() > 1024) {
+    pub fn push(&mut self, value: Bytes32) {
+        if self.stack.len() > 1024 {
             panic!("Stack too deep")
         }
         self.stack.push(value);
     }
 
-    fn pop(&mut self) {
+    pub fn pop(&mut self) {
         self.stack.pop();
     }
 }
