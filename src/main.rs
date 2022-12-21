@@ -9,7 +9,7 @@ fn main() {
         panic!("incorrect argument length")
     }
 
-    let bytecode = args[1];
+    let bytecode = &args[1];
 
     /*
 
