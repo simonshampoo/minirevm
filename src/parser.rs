@@ -1,18 +1,19 @@
 use evm::Opcode;
-use std::collections::BTreeMap;
-type PushData = String;
 use std::str;
+
+type PushData = String;
+type Instruction = (Opcode, Option<Vec<PushData>>);
 pub struct Parser {
-    instructions: BTreeMap<Opcode, Option<PushData>>,
+    instructions: Vec<Instruction>,
 }
 
 impl Parser {
     pub fn new() -> Self {
         Parser {
-            instructions: BTreeMap::new(),
+            instructions: Vec::new(),
         }
     }
-    pub fn parse(&self, bytecode: &String) {
+    pub fn parse(&mut self, bytecode: &String) {
         let codesize = bytecode.len();
 
         if codesize == 0 {
@@ -23,6 +24,12 @@ impl Parser {
         while i < bytecode.len() - 2 {
             let opcode = str::from_utf8(&bytecode.as_bytes()[i..i + 2]);
             i += 2;
+            self.instructions.push((
+                Opcode {
+                    0: opcode.unwrap().as_ptr() as u8,
+                },
+                Some(vec![String::from("IDK")]),
+            ));
 
             println!("OPCODE: {}", opcode.unwrap());
             /*

@@ -1,4 +1,3 @@
-use core::fmt;
 use std::collections::HashMap;
 
 pub type Bytes32 = [u8; 4];
