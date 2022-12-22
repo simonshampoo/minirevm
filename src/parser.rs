@@ -19,38 +19,27 @@ impl Parser {
             panic!("no bytecode provided")
         }
 
-        for i in 0..=bytecode.len() - 2 {
-            let opcode = str::from_utf8(&bytecode.as_bytes()[i..i + 2]).unwrap();
-            i += 2;
-            // convert opcode to type Opcode
-            // be able to parse the hex value ??
-            // idk types lol
-            let jumps = match opcode {
-                0x60..=0x7f => match_push_n(opcode),
-                _ => usize::MAX,
-            };
+        for i in 0..=codesize - 2 {
+            let opcode = Opcode(bytecode[i..i + 2].parse().unwrap());
+
+            let jumps = 0;
+            if let None = opcode.is_push() { // if we don't have a PUSH opcode, meaning we don't take an immediate value but possibly from the stack
+            }
+
+            //
+            //            let jumps = match opcode {
+            //                Opcode(0x60).as_u..=Opcode(0x7f)=> match_push_n(opcode),
+            //                _ => usize::MAX,
+            //            };
 
             if jumps == usize::MAX {
                 panic!("what the fuck")
             }
 
-            /*
+            self.instructions
+                .push((Opcode { 0: opcode.0 }, Some(vec![String::from("IDK")])));
 
-            match opcode {
-                <opcode_that_takes_stack_input> => look at stack and and continue otherwise
-                <opcode_that_doesnt_take_stack_input> =>
-            }
-
-
-            */
-            self.instructions.push((
-                Opcode {
-                    0: opcode.unwrap().as_ptr() as u8,
-                },
-                Some(vec![String::from("IDK")]),
-            ));
-
-            println!("OPCODE: {}", opcode.unwrap());
+            println!("OPCODE: {}", opcode.0);
             /*
 
             now we check if the opcode is one that takes a stack param.
