@@ -340,6 +340,7 @@ name = "minirevm"
 version = "0.1.0"
 dependencies = [
  "evm",
+ "hex",
 ]
 
 [[package]]

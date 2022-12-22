@@ -1,7 +1,7 @@
-use crate::types::Instruction;
+use crate::{types::Instruction, utils::match_push_n};
 use evm::Opcode;
+use hex::encode;
 use std::str;
-
 pub struct Parser {
     instructions: Vec<Instruction>,
 }
@@ -18,15 +18,20 @@ impl Parser {
         if codesize == 0 {
             panic!("no bytecode provided")
         }
-        let mut i = 0;
 
-        while i < bytecode.len() - 2 {
-            let opcode = str::from_utf8(&bytecode.as_bytes()[i..i + 2]);
+        for i in 0..=bytecode.len() - 2 {
+            let opcode = str::from_utf8(&bytecode.as_bytes()[i..i + 2]).unwrap();
             i += 2;
+            // convert opcode to type Opcode
+            // be able to parse the hex value ??
+            // idk types lol
+            let jumps = match opcode {
+                0x60..=0x7f => match_push_n(opcode),
+                _ => usize::MAX,
+            };
 
-            match opcode.unwrap() {
-                "60" => println!("push"),
-                &_ => panic!("AAAA"),
+            if jumps == usize::MAX {
+                panic!("what the fuck")
             }
 
             /*
