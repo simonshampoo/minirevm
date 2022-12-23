@@ -12,7 +12,10 @@ impl Parser {
         }
     }
     pub fn parse(&mut self, bytecode: &String) -> &Vec<Instruction> {
-        println!("Bytecode received: {}", &bytecode);
+        println!(
+            "=======================================\nBytecode received: {}",
+            &bytecode
+        );
         let codesize = bytecode.len();
 
         if codesize == 0 {
@@ -40,7 +43,7 @@ impl Parser {
             }
         }
         //  println!("Instructions received: {:x?}", self.instructions);
-        println!("============================");
+        println!("=======================================");
         for instruction in self.instructions.iter() {
             match &instruction.1 {
                 Some(pushdata) => println!("0x{:x?} {}", instruction.0.as_u8(), pushdata),
