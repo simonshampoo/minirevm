@@ -24,17 +24,13 @@ impl Parser {
                 0: i64::from_str_radix(&bytecode[i..i + 2], 16).unwrap() as u8,
             };
 
-            println!("OPCODE 0x{:x?}", &opcode.0);
-
             i += 2;
             let mut pushdata_len: usize = 0;
             if let Some(len) = opcode.is_push() {
                 pushdata_len = (len * 2) as usize;
-                println!("pushdata_length: {}", pushdata_len);
             }
             if pushdata_len != 0 {
                 let immediate_val = &bytecode[i..i + pushdata_len];
-                println!("pushdata len != 0 and immediate val is {}", immediate_val);
                 self.instructions
                     .push((Opcode { 0: opcode.0 }, Some(String::from(immediate_val))));
                 i += pushdata_len;
