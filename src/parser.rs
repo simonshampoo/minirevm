@@ -46,7 +46,12 @@ impl Parser {
         println!("=======================================");
         for instruction in self.instructions.iter() {
             match &instruction.1 {
-                Some(pushdata) => println!("0x{:x?} {}", instruction.0.as_u8(), pushdata),
+                Some(pushdata) => println!(
+                    "0x{:x?} {}\t ({} bytes)",
+                    instruction.0.as_u8(),
+                    pushdata,
+                    pushdata.len() / 2
+                ),
                 None => println!("0x{:x?}", instruction.0.as_u8()),
             }
         }
