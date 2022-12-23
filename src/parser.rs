@@ -31,7 +31,6 @@ impl Parser {
             if let Some(len) = opcode.is_push() {
                 pushdata_len = (len * 2) as usize;
                 println!("pushdata_length: {}", pushdata_len);
-                // NEWSFLASH BUDDY: WE DONT AND ITS BECAUSE HEX STRING AND u8 AND SHIT IS CONFUSING ME
             }
             if pushdata_len != 0 {
                 let immediate_val = &bytecode[i..i + pushdata_len];
@@ -44,6 +43,13 @@ impl Parser {
             }
         }
         println!("Instructions received: {:x?}", self.instructions);
+        println!("============================");
+        for instruction in self.instructions.iter() {
+            match &instruction.1 {
+                Some(pushdata) => println!("{:x?} {}", instruction.0, pushdata),
+                None => println!("{:x?}", instruction.0),
+            }
+        }
 
         &self.instructions
     }
