@@ -45,6 +45,4 @@ fn main() {
         etc.
 
     */
-
-    println!("{}", args[1]);
 }

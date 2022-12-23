@@ -14,8 +14,8 @@ impl Parser {
         let codesize = bytecode.len();
 
         if codesize == 0 {}
-
-        for i in 0..=codesize - 2 {
+        let mut i = 0;
+        while i < codesize - 2 {
             let opcode = Opcode(bytecode[i..i + 2].parse().unwrap());
 
             let mut pushdata_len: usize = 0;
@@ -23,17 +23,17 @@ impl Parser {
                 pushdata_len = len as usize;
             }
 
-            if pushdata_len != 0 {}
-            self.instructions
-                .push((Opcode { 0: opcode.0 }, Some(String::from("IDK"))));
-
+            if pushdata_len != 0 {
+                let immediate_val = &bytecode[i + 2..pushdata_len];
+                self.instructions
+                    .push((Opcode { 0: opcode.0 }, Some(String::from(immediate_val))));
+                i += pushdata_len;
+            } else {
+                i += 1;
+            }
             println!("OPCODE: {}", opcode.0);
-            /*
-
-            now we check if the opcode is one that takes a stack param.
-            and in the case that it does, we see how many it takes.
-
-            */
         }
+
+        println!("Instructions received: {:?}", self.instructions);
     }
 }
