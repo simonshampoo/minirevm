@@ -29,7 +29,7 @@ impl Parser {
                     .push((Opcode { 0: opcode.0 }, Some(String::from(immediate_val))));
                 i += pushdata_len;
             } else {
-                i += 1;
+                i += 2;
             }
             println!("OPCODE: {}", opcode.0);
         }
