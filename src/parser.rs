@@ -43,19 +43,30 @@ impl Parser {
             }
         }
         //  println!("Instructions received: {:x?}", self.instructions);
-        println!("=======================================");
+        let max_for_padding = self
+            .instructions
+            .iter()
+            .map(|(_, v)| v)
+            .max()
+            .unwrap()
+            .as_ref()
+            .unwrap()
+            .len();
+        println!("================================================================");
         for instruction in self.instructions.iter() {
             match &instruction.1 {
                 Some(pushdata) => println!(
-                    "0x{:x?} {}\t ({} bytes)",
+                    "0x{:x?} {} {: >max$}({} bytes)",
                     instruction.0.as_u8(),
                     pushdata,
-                    pushdata.len() / 2
+                    "",
+                    pushdata.len() / 2,
+                    max = 16 + max_for_padding - pushdata.len()
                 ),
                 None => println!("0x{:x?}", instruction.0.as_u8()),
             }
         }
-
+        println!("================================================================");
         &self.instructions
     }
 }
