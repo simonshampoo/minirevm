@@ -13,7 +13,7 @@ impl Parser {
     }
     pub fn parse(&mut self, bytecode: &String) -> &Vec<Instruction> {
         println!(
-            "=======================================\nBytecode received: {}",
+            "=================================================================================\nBytecode received: {}",
             &bytecode
         );
         let codesize = bytecode.len();
@@ -52,7 +52,9 @@ impl Parser {
             .as_ref()
             .unwrap()
             .len();
-        println!("================================================================");
+        println!(
+            "================================================================================="
+        );
         for instruction in self.instructions.iter() {
             match &instruction.1 {
                 Some(pushdata) => println!(
@@ -61,12 +63,15 @@ impl Parser {
                     pushdata,
                     "",
                     pushdata.len() / 2,
-                    max = 16 + max_for_padding - pushdata.len()
+                    max = 33 + max_for_padding - pushdata.len()
                 ),
                 None => println!("0x{:x?}", instruction.0.as_u8()),
             }
         }
-        println!("================================================================");
+
+        println!(
+            "================================================================================="
+        );
         &self.instructions
     }
 }
