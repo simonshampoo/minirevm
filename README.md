@@ -6,7 +6,7 @@ inspired by evm.codes
 
 # Usage
 
-cargo run <bytecode>
+```cargo run <bytecode>```
 
 # Example
 
