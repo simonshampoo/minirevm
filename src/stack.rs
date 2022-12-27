@@ -14,12 +14,19 @@ impl Stack {
 
     pub fn push(&mut self, value: Bytes32) {
         if self.stack.len() > 1024 {
-            panic!("FUCKKKKKK")
+            panic!("Stack Overflow")
         }
+
+        // I need to pad the bytes im pretty sure. this is INCOMPLETE
         self.stack.push(value);
     }
 
     pub fn pop(&mut self) {
+        
+        if (self.stack.len() < 1) {
+            panic!("Stack underflow")
+        }
+
         self.stack.pop();
     }
 
