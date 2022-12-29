@@ -1,4 +1,5 @@
 use crate::storage::Bytes32;
+use std::fmt;
 
 pub struct Stack {
     stack: Vec<Bytes32>,
@@ -11,7 +12,6 @@ impl Stack {
         }
     }
 
-    
     pub fn push(&mut self, value: Bytes32) {
         if self.size() > 1024 {
             panic!("Stack Overflow")
@@ -54,16 +54,13 @@ impl Stack {
     }
 }
 
-
-
 #[cfg(test)]
 mod tests {
 
     #[test]
     fn it_works() {
-        let result = 2+2;
+        let result = 2 + 2;
 
         assert_eq!(result, 4);
     }
-
 }
