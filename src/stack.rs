@@ -1,5 +1,4 @@
 use crate::storage::Bytes32;
-use std::io::{Error, ErrorKind};
 
 pub struct Stack {
     stack: Vec<Bytes32>,
@@ -7,12 +6,13 @@ pub struct Stack {
 
 impl Stack {
     pub fn new() -> Self {
-        Stack { stack: Vec::<Bytes32>::new(),
+        Stack {
+            stack: Vec::<Bytes32>::new(),
         }
     }
 
     pub fn push(&mut self, value: Bytes32) {
-        if self.stack.len() > 1024 {
+        if self.size() > 1024 {
             panic!("Stack Overflow")
         }
 
@@ -21,8 +21,7 @@ impl Stack {
     }
 
     pub fn pop(&mut self) {
-        
-        if (self.stack.len() < 1) {
+        if self.size() < 1 {
             panic!("Stack underflow")
         }
 
@@ -33,23 +32,30 @@ impl Stack {
         self.stack.len()
     }
 
-    pub fn dup(&mut self, position: usize) -> Result<Bytes32, &'static str> {
+    fn peek(&self) -> Option<Bytes32> {
+        if self.size() < 1 {
+            return None;
+        }
+        Some(self.stack[self.size() - 1])
+    }
 
+    pub fn dup(&mut self, position: usize) {
         if self.size() > 1023 {
-            return Err("stack overflow")
+            todo!("good error message here")
         }
         if self.size() < position {
-            return Err("fuck");
+            todo!("good error message here")
         }
         if position > 16 {
-            return Err("fuck");
+            todo!("good error message here")
         }
 
-        let peek_index = self.size()-position-1;
+        let peek_index = self.size() - position - 1;
         self.stack.push(self.stack[peek_index]);
+    }
 
-        self.stack.swap(0, position);
-
-        Ok(self.stack[peek_index as usize])
+    pub fn swap(&mut self, position: usize) {
+        let sz = self.size();
+        self.stack.swap(position, sz);
     }
 }
