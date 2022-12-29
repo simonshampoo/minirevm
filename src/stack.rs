@@ -11,6 +11,7 @@ impl Stack {
         }
     }
 
+    
     pub fn push(&mut self, value: Bytes32) {
         if self.size() > 1024 {
             panic!("Stack Overflow")
@@ -32,13 +33,6 @@ impl Stack {
         self.stack.len()
     }
 
-    fn peek(&self) -> Option<Bytes32> {
-        if self.size() < 1 {
-            return None;
-        }
-        Some(self.stack[self.size() - 1])
-    }
-
     pub fn dup(&mut self, position: usize) {
         if self.size() > 1023 {
             todo!("good error message here")
@@ -58,4 +52,18 @@ impl Stack {
         let sz = self.size();
         self.stack.swap(position, sz);
     }
+}
+
+
+
+#[cfg(test)]
+mod tests {
+
+    #[test]
+    fn it_works() {
+        let result = 2+2;
+
+        assert_eq!(result, 4);
+    }
+
 }
