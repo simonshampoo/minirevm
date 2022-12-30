@@ -101,11 +101,9 @@ mod tests {
         let mut stack = Stack::new();
 
         let value: Bytes32 = [1, 2, 3, 4];
-        let value1: Bytes32 = [4, 3, 2, 1];
         stack.push(value);
-        stack.push(value1);
-        stack.swap(0);
-
-        assert_eq!(stack.stack[0], value1)
+        stack.dup(0);
+        println!("{:?}", stack.stack);
+        assert!(stack.size() == 2 && stack.stack[0] == stack.stack[1])
     }
 }
