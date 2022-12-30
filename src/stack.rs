@@ -1,5 +1,4 @@
 use crate::storage::Bytes32;
-use std::fmt;
 
 pub struct Stack {
     stack: Vec<Bytes32>,

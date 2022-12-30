@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 pub type Bytes32 = [u8; 4];
 pub struct Storage {
-    pub kvstore: HashMap<Bytes32, Bytes32>,
+    pub kvstore: HashMap::<Bytes32, Bytes32>,
     pub gas: u16,
 }
 
@@ -14,9 +14,19 @@ impl Storage {
         }
     }
 
-    pub fn new_storage(&mut self, key: Bytes32, value: Bytes32) {
+    pub fn sstore(&mut self, key: Bytes32, value: Bytes32) {
+        self.kvstore.insert(key, value);
+        self.gas += 0; //TODO 
 
+    }
 
+    pub fn sload(&self, key: Bytes32) -> Option<Bytes32>{
+        let val = self.kvstore.get(&key);
+        
+        match val {
+            Some(val) => Some(*val), // what the fuck
+            _  =>  None
+        }
     }
 
     pub fn get_gas(&self) -> u16 {
