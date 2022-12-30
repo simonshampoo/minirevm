@@ -29,7 +29,7 @@ impl Stack {
         self.stack.pop();
     }
 
-    fn size(&self) -> usize {
+    pub fn size(&self) -> usize {
         self.stack.len()
     }
 
@@ -50,17 +50,62 @@ impl Stack {
 
     pub fn swap(&mut self, position: usize) {
         let sz = self.size();
-        self.stack.swap(position, sz);
+        if position > sz {
+            panic!("not enough stack items")
+        }
+        self.stack.swap(position, sz - 1);
     }
 }
 
 #[cfg(test)]
 mod tests {
+    use super::*;
 
     #[test]
-    fn it_works() {
-        let result = 2 + 2;
+    fn test_push() {
+        let mut stack = Stack::new();
 
-        assert_eq!(result, 4);
+        let value: Bytes32 = [1, 2, 3, 4];
+
+        stack.push(value);
+
+        assert_eq!(stack.stack[0], [1, 2, 3, 4])
+    }
+
+    #[test]
+    fn test_pop() {
+        let mut stack = Stack::new();
+
+        let value: Bytes32 = [1, 2, 3, 4];
+
+        stack.push(value);
+        stack.pop();
+
+        assert_eq!(stack.size(), 0)
+    }
+
+    #[test]
+    fn test_swap() {
+        let mut stack = Stack::new();
+
+        let value: Bytes32 = [1, 2, 3, 4];
+        let value1: Bytes32 = [4, 3, 2, 1];
+        stack.push(value);
+        stack.push(value1);
+        stack.swap(0);
+
+        assert_eq!(stack.stack[0], value1)
+    }
+    #[test]
+    fn test_dup() {
+        let mut stack = Stack::new();
+
+        let value: Bytes32 = [1, 2, 3, 4];
+        let value1: Bytes32 = [4, 3, 2, 1];
+        stack.push(value);
+        stack.push(value1);
+        stack.swap(0);
+
+        assert_eq!(stack.stack[0], value1)
     }
 }
