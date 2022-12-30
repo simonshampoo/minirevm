@@ -12,7 +12,4 @@ fn main() {
 
     let instructions = parser.parse(bytecode);
 
-    for instruction in instructions.iter() {
-        println!("{:x?}", instruction);
-    }
 }
