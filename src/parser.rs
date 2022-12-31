@@ -1,6 +1,7 @@
 use crate::types::Instruction;
 use evm::Opcode;
 use std::i64;
+use std::fmt;
 pub struct Parser {
     instructions: Vec<Instruction>,
 }
@@ -75,6 +76,15 @@ impl Parser {
         &self.instructions
     }
 }
+
+impl fmt::Display for Parser {
+
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{} fuck", self)
+    }    
+
+}
+
 
 #[cfg(test)]
 mod tests {
