@@ -32,9 +32,7 @@ impl EVM {
         }
     }
 
-    fn mstore(&self) {
-        todo!()
-    }
+    fn mstore(&self) {}
 
     fn mload(&self) {
         todo!()
