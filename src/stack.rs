@@ -1,4 +1,4 @@
-use crate::storage::Bytes32;
+use crate::types::Bytes32;
 
 pub struct Stack {
     stack: Vec<Bytes32>,

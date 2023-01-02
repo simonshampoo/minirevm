@@ -1,6 +1,7 @@
 use evm::Opcode;
 use std::fmt;
 
+pub type Bytes32 = [u8; 4];
 type PushData = String;
 pub type Instruction = (Opcode, Option<PushData>);
 
