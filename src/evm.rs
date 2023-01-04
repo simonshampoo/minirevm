@@ -2,6 +2,7 @@ use crate::memory::Memory;
 use crate::stack::Stack;
 use crate::storage::Storage;
 use crate::types::{Instruction, Bytes32};
+use crate::utils::match_push_n;
 
 #[allow(dead_code)]
 pub struct EVM {
@@ -23,7 +24,10 @@ impl EVM {
     pub fn execute_bytecode(&self, instructions: &Vec<Instruction>) {
         for instruction in instructions.iter() {
             match instruction.0.as_u8() {
-                0x60..=0x7F => todo!("PUSH, must account for pushdata"),
+                0x60..=0x7F => {
+                    let push_n = match_push_n(evm::Opcode(instruction.0.as_u8()));
+
+                },
                 0x80..=0x8F => todo!("DUP, must read from stack"),
                 0x90..=0x9f => todo!("SWAP, must read from stack"),
 
