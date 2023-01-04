@@ -1,7 +1,7 @@
 use crate::memory::Memory;
 use crate::stack::Stack;
 use crate::storage::Storage;
-use crate::types::Instruction;
+use crate::types::{Instruction, Bytes32};
 
 #[allow(dead_code)]
 pub struct EVM {
@@ -32,22 +32,24 @@ impl EVM {
         }
     }
 
-    fn mstore(&self) {}
-
-    fn mload(&self) {
-        todo!()
+    fn mstore(&mut self, data: Bytes32) {
+        self.memory.mstore(data);
     }
 
-    fn sstore(&self) {
-        todo!()
+    fn mload(&self, offset: usize) -> &Bytes32 {
+         self.memory.mload(offset)
     }
 
-    fn push(&self) {
-        todo!()
+    fn sstore(&mut self, key: Bytes32, value: Bytes32) {
+        self.storage.sstore(key, value);
     }
 
-    fn pop() {
-        todo!()
+    fn push(&mut self, data: Bytes32) {
+        self.stack.push(data);
+    }
+
+    fn pop(&mut self) {
+        self.stack.pop();
     }
 }
 
