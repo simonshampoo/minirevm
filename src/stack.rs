@@ -16,7 +16,6 @@ impl Stack {
             panic!("Stack Overflow")
         }
 
-        // I need to pad the bytes im pretty sure. this is INCOMPLETE
         self.stack.push(value);
     }
 

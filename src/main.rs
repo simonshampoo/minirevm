@@ -10,6 +10,6 @@ fn main() {
     let bytecode = &args[1];
     let mut parser = Parser::new();
 
-    let instructions = parser.parse(bytecode);
+    parser.parse(bytecode);
 
 }
