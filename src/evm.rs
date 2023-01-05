@@ -2,7 +2,8 @@ use crate::memory::Memory;
 use crate::stack::Stack;
 use crate::storage::Storage;
 use crate::types::{Bytes32, Instruction};
-use crate::utils::match_swap_n; 
+use crate::utils::match_stackop_n;
+use evm::Opcode;
 
 #[allow(dead_code)]
 pub struct EVM {
@@ -27,21 +28,20 @@ impl EVM {
                 0x60..=0x7F => {
                     self.stack.push(
                         instruction
-                        .1
-                        .as_ref()
-                        .unwrap()
-                        .as_bytes()
-                        .try_into().unwrap()
+                            .1
+                            .as_ref()
+                            .unwrap()
+                            .as_bytes()
+                            .try_into()
+                            .unwrap(),
                     );
                 }
-                0x80..=0x8F => {},
+                0x80..=0x8F => {}
                 0x90..=0x9f => {
-
-                    let swap_n = match_swap_n(instruction.0.as_u8);                     
-
-
-
-                },
+                    let swap_n = match_stackop_n(Opcode {
+                        0: instruction.0.as_u8(),
+                    });
+                }
                 _ => todo!("im hungry rn"),
             }
         }
