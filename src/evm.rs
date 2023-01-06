@@ -6,6 +6,7 @@ use crate::utils::match_stackop_n;
 use evm::Opcode;
 
 #[allow(dead_code)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct EVM {
     stack: Stack,
     memory: Memory,

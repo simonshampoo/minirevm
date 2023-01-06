@@ -1,5 +1,6 @@
 use crate::types::Bytes32;
 
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Memory {
     pub memory: Vec<Bytes32>,
 }

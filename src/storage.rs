@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 use crate::types::Bytes32;
 
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Storage {
     pub kvstore: HashMap::<Bytes32, Bytes32>,
 }
