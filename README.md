@@ -30,6 +30,6 @@ Bytecode received: 60FF61FFFF62FFFFFF63FFFFFFFF6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 
 this project is not finished yet. i am not responsible for any losses you incur using this software. feel free to make a pr though i could use some extra hands
 
-[ ] multiple contract support (```.sol``` and ABI)
-[ ] multithreading
-[ ] refine to be more of a library with a cli tool 
+- [ ] multiple contract support (```.sol``` and ABI)
+- [ ] multithreading
+- [ ] refine to be more of a library with a cli tool 
