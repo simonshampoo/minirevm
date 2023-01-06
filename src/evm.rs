@@ -37,13 +37,21 @@ impl EVM {
                             .unwrap(),
                     );
                 }
-                0x80..=0x8F => {}
+                0x80..=0x8F => {
+                    let dup_n = match_stackop_n(Opcode {
+                        0: instruction.0.as_u8(),
+                    });
+
+                    self.stack.dup(dup_n); 
+                }
+
                 0x90..=0x9f => {
                     let swap_n = match_stackop_n(Opcode {
                         0: instruction.0.as_u8(),
                     });
+                    self.stack.swap(swap_n);
                 }
-                _ => todo!("im hungry rn"),
+                _ => (),
             }
         }
     }
