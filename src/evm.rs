@@ -15,7 +15,7 @@ pub struct EVM {
 
 #[allow(dead_code)]
 impl EVM {
-    pub fn new(&self) -> Self {
+    pub fn new() -> Self {
         EVM {
             stack: Stack::new(),
             memory: Memory::new(),
