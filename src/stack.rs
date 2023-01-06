@@ -2,18 +2,18 @@ use crate::types::Bytes32;
 
 
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub struct Stack {
-    stack: Vec<Bytes32>,
+pub struct Stack<'a> {
+    stack: Vec<&'a Bytes32>,
 }
 
-impl Stack {
+impl<'a> Stack <'a>{
     pub fn new() -> Self {
         Stack {
-            stack: Vec::<Bytes32>::new(),
+            stack: Vec::<&'static Bytes32>::new(),
         }
     }
 
-    pub fn push(&mut self, value: Bytes32) {
+    pub fn push(&mut self, value: &Bytes32) {
         if self.size() > 1024 {
             panic!("Stack Overflow")
         }

@@ -15,7 +15,7 @@ pub struct EVM {
 
 #[allow(dead_code)]
 impl EVM {
-    pub fn new(&self) -> Self {
+    pub fn new() -> Self {
         EVM {
             stack: Stack::new(),
             memory: Memory::new(),
@@ -27,22 +27,14 @@ impl EVM {
         for instruction in instructions.iter() {
             match instruction.0.as_u8() {
                 0x60..=0x7F => {
-                    self.stack.push(
-                        instruction
-                            .1
-                            .as_ref()
-                            .unwrap()
-                            .as_bytes()
-                            .try_into()
-                            .unwrap(),
-                    );
+                    self.stack.push(instruction.1.as_ref().unwrap().as_bytes());
                 }
                 0x80..=0x8F => {
                     let dup_n = match_stackop_n(Opcode {
                         0: instruction.0.as_u8(),
                     });
 
-                    self.stack.dup(dup_n); 
+                    self.stack.dup(dup_n);
                 }
 
                 0x90..=0x9f => {
