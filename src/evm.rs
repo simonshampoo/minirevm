@@ -2,9 +2,8 @@ use crate::memory::Memory;
 use crate::stack::Stack;
 use crate::storage::Storage;
 use crate::types::{Bytes32, Instruction};
-use crate::utils::match_stackop_n;
+use crate::utils::{decode_hex, encode_hex, match_stackop_n};
 use evm::Opcode;
-use std::u32;
 
 #[allow(dead_code)]
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -36,11 +35,12 @@ impl EVM {
                         instruction.0.as_u8() - 95,
                         &instruction.1
                     );
-                    self.stack.push(
-                        u32::from_str_radix(instruction.1.as_ref().unwrap(), 16)
+                    self.stack.push(Bytes32 {
+                        0: decode_hex(&instruction.1.as_ref().unwrap())
                             .unwrap()
-                            .to_be_bytes(),
-                    );
+                            .as_slice()
+                            .try_into().unwrap(),
+                    });
                 }
                 0x80..=0x8F => {
                     let dup_n = match_stackop_n(Opcode {
