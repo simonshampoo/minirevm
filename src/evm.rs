@@ -2,10 +2,10 @@ use crate::memory::Memory;
 use crate::stack::Stack;
 use crate::storage::Storage;
 use crate::types::{Bytes32, Instruction};
-use crate::utils::match_stackop_n;
+use crate::utils::{decode_hex, match_stackop_n};
 use evm::Opcode;
-use std::u32;
-
+use hex::decode;
+use std::u64;
 #[allow(dead_code)]
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct EVM {
@@ -36,10 +36,16 @@ impl EVM {
                         instruction.0.as_u8() - 95,
                         &instruction.1
                     );
-                    self.stack.push(
-                        u32::from_str_radix(instruction.1.as_ref().unwrap(), 16)
-                            .unwrap()
-                            .to_be_bytes(),
+                    // self.stack.push(Bytes32 {
+                    //     0: hex::decode(instruction.1.as_ref().unwrap())
+                    //         .unwrap()
+                    //         .try_into()
+                    //         .unwrap(),
+                    // });
+
+                    println!(
+                        "{:?}",
+                        hex::decode(instruction.1.as_ref().unwrap()).unwrap()
                     );
                 }
                 0x80..=0x8F => {

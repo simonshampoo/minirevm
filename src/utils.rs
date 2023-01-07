@@ -1,4 +1,5 @@
 use evm::Opcode;
+use std::{fmt::Write, num::ParseIntError};
 
 pub fn match_stackop_n(opcode: Opcode) -> usize {
     match opcode {
@@ -38,40 +39,17 @@ pub fn match_stackop_n(opcode: Opcode) -> usize {
     }
 }
 
-pub fn match_push_n(opcode: Opcode) -> usize {
-    match opcode {
-        Opcode::PUSH1 => 1,
-        Opcode::PUSH2 => 2,
-        Opcode::PUSH3 => 3,
-        Opcode::PUSH4 => 4,
-        Opcode::PUSH5 => 5,
-        Opcode::PUSH6 => 6,
-        Opcode::PUSH7 => 7,
-        Opcode::PUSH8 => 8,
-        Opcode::PUSH9 => 9,
-        Opcode::PUSH10 => 10,
-        Opcode::PUSH11 => 11,
-        Opcode::PUSH12 => 12,
-        Opcode::PUSH13 => 13,
-        Opcode::PUSH14 => 14,
-        Opcode::PUSH15 => 15,
-        Opcode::PUSH16 => 16,
-        Opcode::PUSH17 => 17,
-        Opcode::PUSH18 => 18,
-        Opcode::PUSH19 => 19,
-        Opcode::PUSH20 => 20,
-        Opcode::PUSH21 => 21,
-        Opcode::PUSH22 => 22,
-        Opcode::PUSH23 => 23,
-        Opcode::PUSH24 => 24,
-        Opcode::PUSH25 => 25,
-        Opcode::PUSH26 => 26,
-        Opcode::PUSH27 => 27,
-        Opcode::PUSH28 => 28,
-        Opcode::PUSH29 => 29,
-        Opcode::PUSH30 => 30,
-        Opcode::PUSH31 => 31,
-        Opcode::PUSH32 => 32,
-        _ => 0,
+pub fn decode_hex(s: &str) -> Result<Vec<u64>, ParseIntError> {
+    (0..s.len())
+        .step_by(2)
+        .map(|i| u64::from_str_radix(&s[i..i + 2], 16))
+        .collect()
+}
+
+pub fn encode_hex(bytes: &[u8]) -> String {
+    let mut s = String::with_capacity(bytes.len() * 2);
+    for &b in bytes {
+        write!(&mut s, "{:02x}", b).unwrap();
     }
+    s
 }

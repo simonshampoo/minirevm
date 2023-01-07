@@ -35,25 +35,26 @@ impl Stack {
 
     pub fn dup(&mut self, position: usize) {
         if self.size() > 1023 {
-            todo!("good error message here")
+            println!("good error message here")
+                
         }
         if self.size() < position {
-            todo!("good error message here")
+            println!("good error message here")
         }
         if position > 16 {
-            todo!("good error message here")
+            println!("good error message here")
         }
 
-        let peek_index = self.size() - position - 1;
-        self.stack.push(self.stack[peek_index]);
+        //let peek_index = self.size() - position - 1;
+        //self.stack.push(self.stack[peek_index]);
     }
 
     pub fn swap(&mut self, position: usize) {
-        let sz = self.size();
-        if position > sz {
-            panic!("not enough stack items")
-        }
-        self.stack.swap(position, sz - 1);
+        //let sz = self.size();
+        //if position > sz {
+        //    panic!("not enough stack items")
+        //}
+        //self.stack.swap(position, sz - 1);
     }
 }
 
