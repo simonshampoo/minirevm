@@ -4,6 +4,7 @@ use crate::storage::Storage;
 use crate::types::{Bytes32, Instruction};
 use crate::utils::match_stackop_n;
 use evm::Opcode;
+use std::u32;
 
 #[allow(dead_code)]
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -27,14 +28,18 @@ impl EVM {
         for instruction in instructions.iter() {
             match instruction.0.as_u8() {
                 0x60..=0x7F => {
+                    println!(
+                        "PUSH{} OPERATION AND WE'RE PUSHING {:?}",
+                        //i32::from_str_radix(instruction.1.as_ref().unwrap(), 16)
+                        //   .unwrap()
+                        //  .to_be_bytes()
+                        instruction.0.as_u8() - 95,
+                        &instruction.1
+                    );
                     self.stack.push(
-                        instruction
-                            .1
-                            .as_ref()
+                        u32::from_str_radix(instruction.1.as_ref().unwrap(), 16)
                             .unwrap()
-                            .as_bytes()
-                            .try_into()
-                            .unwrap(),
+                            .to_be_bytes(),
                     );
                 }
                 0x80..=0x8F => {
@@ -42,7 +47,7 @@ impl EVM {
                         0: instruction.0.as_u8(),
                     });
 
-                    self.stack.dup(dup_n); 
+                    self.stack.dup(dup_n);
                 }
 
                 0x90..=0x9f => {
@@ -60,8 +65,8 @@ impl EVM {
         self.memory.mstore(data);
     }
 
-    fn mload(&self, offset: usize) -> &Bytes32 {
-        self.memory.mload(offset)
+    fn mload(&self, offset: usize) {
+        self.memory.mload(offset);
     }
 
     fn sstore(&mut self, key: Bytes32, value: Bytes32) {
@@ -74,6 +79,18 @@ impl EVM {
 
     fn pop(&mut self) {
         self.stack.pop();
+    }
+
+    pub fn print_stack(&self) {
+        println!("{:?}", self.stack)
+    }
+
+    pub fn print_memory(&self) {
+        println!("{:?}", self.memory)
+    }
+
+    pub fn print_storage(&self) {
+        println!("{:?}", self.storage)
     }
 }
 

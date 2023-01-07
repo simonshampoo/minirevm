@@ -64,7 +64,7 @@ impl Parser {
                     pushdata,
                     "",
                     pushdata.len() / 2,
-                    max = max_for_padding -  pushdata.len()
+                    max = 50 // max_for_padding -  pushdata.len()
                 ),
                 None => println!("0x{:x?}", instruction.0.as_u8()),
             }

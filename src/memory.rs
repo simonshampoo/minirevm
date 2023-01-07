@@ -17,8 +17,8 @@ impl Memory {
     }
     
     // idk how this is gonna work with strings and other dynamic memory
-    pub fn mload(&self, offset: usize) -> &Bytes32 {
-        &self.memory[offset] // also this is probably wrong
+    pub fn mload(&self, offset: usize) {
+        &self.memory[offset]; // also this is probably wrong
     }
 }
 

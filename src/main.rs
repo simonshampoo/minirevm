@@ -1,5 +1,5 @@
-use minirevm::parser::Parser;
 use minirevm::evm::EVM;
+use minirevm::parser::Parser;
 use std::env;
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -13,9 +13,14 @@ fn main() {
 
     let instructions = parser.parse(bytecode);
 
-    let mut evm = EVM::new();          
+    let mut evm = EVM::new();
 
     evm.execute_bytecode(instructions);
+    
+    evm.print_stack();
+
+    evm.print_memory();
+
+    evm.print_storage();
+
 }
-
-
