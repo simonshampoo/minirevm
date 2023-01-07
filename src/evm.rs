@@ -36,12 +36,12 @@ impl EVM {
                         instruction.0.as_u8() - 95,
                         &instruction.1
                     );
-                    // self.stack.push(Bytes32 {
-                    //     0: hex::decode(instruction.1.as_ref().unwrap())
-                    //         .unwrap()
-                    //         .try_into()
-                    //         .unwrap(),
-                    // });
+                     self.stack.push(Bytes32 {
+                         0: hex::decode(instruction.1.as_ref().unwrap())
+                             .unwrap()
+                             .try_into()
+                             .unwrap(),
+                     });
 
                     println!(
                         "{:?}",
@@ -52,7 +52,7 @@ impl EVM {
                     let dup_n = match_stackop_n(Opcode {
                         0: instruction.0.as_u8(),
                     });
-
+                    println!("DUP_N IS {}", dup_n);
                     self.stack.dup(dup_n);
                 }
 
