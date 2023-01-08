@@ -1,5 +1,5 @@
 use crate::types::Bytes32;
-
+use std::fmt;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Stack {
@@ -21,12 +21,12 @@ impl Stack {
         self.stack.push(value);
     }
 
-    pub fn pop(&mut self) {
+    pub fn pop(&mut self) -> Bytes32 {
         if self.size() < 1 {
             panic!("Stack underflow")
         }
 
-        self.stack.pop();
+        self.stack.pop().unwrap()
     }
 
     pub fn size(&self) -> usize {
@@ -36,10 +36,13 @@ impl Stack {
     pub fn dup(&mut self, position: usize) {
         if self.size() > 1023 {
             println!("stack too deep")
-                
         }
         if self.size() < position {
-            println!("size is {} , position is {} ... out of bounds error", self.size(), position)
+            println!(
+                "size is {} , position is {} ... out of bounds error",
+                self.size(),
+                position
+            )
         }
         if position > 16 {
             println!("not supported")
@@ -62,6 +65,14 @@ impl Stack {
     }
 }
 
+impl fmt::Display for Stack {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        self.stack
+            .iter()
+            .fold(Ok(()), |r, b| r.and_then(|_| writeln!(f, "{}", b)))
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -70,18 +81,18 @@ mod tests {
     fn test_push() {
         let mut stack = Stack::new();
 
-        let value: Bytes32 = [1, 2, 3, 4];
+        let value: Bytes32 = Bytes32(vec![1, 2, 3, 4]);
 
         stack.push(value);
 
-        assert_eq!(stack.stack[0], [1, 2, 3, 4])
+        assert_eq!(stack.stack[0], vec![1, 2, 3, 4])
     }
 
     #[test]
     fn test_pop() {
         let mut stack = Stack::new();
 
-        let value: Bytes32 = [1, 2, 3, 4];
+        let value: Bytes32 = Bytes32(vec![1, 2, 3, 4]);
 
         stack.push(value);
         stack.pop();

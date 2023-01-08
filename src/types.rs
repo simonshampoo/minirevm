@@ -8,8 +8,12 @@ pub type Instruction = (Opcode, Option<PushData>);
 
 struct Instr(Instruction);
 
-impl fmt::Display for Instr {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", "TODO")
-    }
+impl fmt::Display for Bytes32 {
+   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+       self.0.iter().fold(Ok(()), |r, b| {
+           r.and_then(|_| write!(f, "{}, ", b))
+       })
+   } 
 }
+
+        

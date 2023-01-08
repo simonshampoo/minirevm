@@ -12,8 +12,9 @@ impl Memory {
         }
     }
 
-    pub fn mstore(&mut self, val: Bytes32) {
-        self.memory.push(val);
+    pub fn mstore(&mut self, offset: Bytes32, val: Bytes32) {
+        //self.memory[offset]=val;
+        todo!()
     }
     
     // idk how this is gonna work with strings and other dynamic memory

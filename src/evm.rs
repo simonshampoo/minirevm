@@ -29,30 +29,22 @@ impl EVM {
             match instruction.0.as_u8() {
                 0x60..=0x7F => {
                     println!(
-                        "PUSH{} OPERATION AND WE'RE PUSHING {:?}",
-                        //i32::from_str_radix(instruction.1.as_ref().unwrap(), 16)
-                        //   .unwrap()
-                        //  .to_be_bytes()
+                        "PUSH{} 0x{}",
                         instruction.0.as_u8() - 95,
-                        &instruction.1
+                        instruction.1.as_ref().unwrap()
                     );
-                     self.stack.push(Bytes32 {
-                         0: hex::decode(instruction.1.as_ref().unwrap())
-                             .unwrap()
-                             .try_into()
-                             .unwrap(),
-                     });
-
-                    println!(
-                        "{:?}",
-                        hex::decode(instruction.1.as_ref().unwrap()).unwrap()
-                    );
+                    self.stack.push(Bytes32 {
+                        0: hex::decode(instruction.1.as_ref().unwrap())
+                            .unwrap()
+                            .try_into()
+                            .unwrap(),
+                    });
                 }
                 0x80..=0x8F => {
                     let dup_n = match_stackop_n(Opcode {
                         0: instruction.0.as_u8(),
                     });
-                    println!("DUP_N IS {}", dup_n);
+                    println!("DUP{}", instruction.0.as_u8() - 127,);
                     self.stack.dup(dup_n);
                 }
 
@@ -60,15 +52,25 @@ impl EVM {
                     let swap_n = match_stackop_n(Opcode {
                         0: instruction.0.as_u8(),
                     });
+                    println!("SWAP{}", instruction.0.as_u8() - 143,);
                     self.stack.swap(swap_n);
                 }
+                //                0x51 =>  {
+                //                    self.mstore(
+                //                        self.stack.pop(),
+                //                        self.stack.pop(),
+                //                    );
+                //                },
+                //                0x55 => {
+                //                    self.sstore(self.stack.pop(), self.stack.pop());
+                //                }
                 _ => (),
             }
         }
     }
 
-    fn mstore(&mut self, data: Bytes32) {
-        self.memory.mstore(data);
+    fn mstore(&mut self, offset: Bytes32, data: Bytes32) {
+        self.memory.mstore(offset, data);
     }
 
     fn mload(&self, offset: usize) {
@@ -88,7 +90,7 @@ impl EVM {
     }
 
     pub fn print_stack(&self) {
-        println!("{:?}", self.stack)
+        println!("{}", self.stack)
     }
 
     pub fn print_memory(&self) {
