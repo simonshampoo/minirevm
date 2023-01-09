@@ -1,4 +1,5 @@
 use crate::memory::Memory;
+use crate::opcodes;
 use crate::stack::Stack;
 use crate::storage::Storage;
 use crate::types::{Bytes32, Instruction};
@@ -33,7 +34,7 @@ impl EVM {
                 0x06 => todo!("MOD"),
                 0x07 => todo!("SMOD"),
                 0x08 => todo!("ADDMOD"),
-                0x09 => todo!(""),
+                0x09 => todo!("MULMOD"),
                 0x0A => todo!(""),
                 0x0B => todo!(""),
                 0x10 => todo!(""),
@@ -47,32 +48,28 @@ impl EVM {
                 0x18 => todo!(""),
                 0x19 => todo!(""),
 
-
-                0x60..=0x7F => { // PUSH operations
+                opcodes::PUSH1..=opcodes::PUSH32 => {
+                    // PUSH operations
                     println!(
                         "PUSH{} 0x{}",
                         instruction.0.as_u8() - 95,
                         instruction.1.as_ref().unwrap()
                     );
-                    self.stack.push(Bytes32 {
-                        0: hex::decode(instruction.1.as_ref().unwrap())
+                    self.stack.push(Bytes32(
+                        hex::decode(instruction.1.as_ref().unwrap())
                             .unwrap()
                             .try_into()
                             .unwrap(),
-                    });
+                    ));
                 }
-                0x80..=0x8F => {
-                    let dup_n = match_stackop_n(Opcode {
-                        0: instruction.0.as_u8(),
-                    });
+                opcodes::DUP1..=opcodes::DUP16 => {
+                    let dup_n = match_stackop_n(Opcode(instruction.0.as_u8()));
                     println!("DUP{}", instruction.0.as_u8() - 127,);
                     self.stack.dup(dup_n);
                 }
 
-                0x90..=0x9f => {
-                    let swap_n = match_stackop_n(Opcode {
-                        0: instruction.0.as_u8(),
-                    });
+                opcodes::SWAP1..=opcodes::SWAP16 => {
+                    let swap_n = match_stackop_n(Opcode(instruction.0.as_u8()));
                     println!("SWAP{}", instruction.0.as_u8() - 143,);
                     self.stack.swap(swap_n);
                 }
@@ -82,8 +79,8 @@ impl EVM {
                     self.mstore(offset, data);
                 }
                 0x55 => {
-                    let key = self.stack.pop(); 
-                    let value = self.stack.pop(); 
+                    let key = self.stack.pop();
+                    let value = self.stack.pop();
                     self.sstore(key, value);
                 }
                 _ => {
@@ -92,6 +89,14 @@ impl EVM {
                 }
             }
         }
+    }
+
+    fn stop() {
+        std::process::exit(0)
+    }
+
+    fn add(a: Bytes32, b: Bytes32) {
+
     }
 
     fn mstore(&mut self, offset: Bytes32, data: Bytes32) {
