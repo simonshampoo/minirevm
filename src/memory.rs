@@ -17,7 +17,12 @@ impl Memory {
     pub fn mstore(&mut self, offset: Bytes32, val: Bytes32) {
         let o = encode_hex(offset.0.as_slice());
         let off = (u64::from_str_radix(o.as_str(), 16).unwrap() / 32) as usize;
-        self.memory[off] = val;
+        println!("MEMORY {:?}", self.memory);
+        if off > self.memory.len() {
+            self.memory.push(val);
+        } else {
+            self.memory[off] = val;
+        }
     }
 
     // idk how this is gonna work with strings and other dynamic memory

@@ -25,7 +25,30 @@ impl EVM {
     pub fn execute_bytecode(&mut self, instructions: &Vec<Instruction>) {
         for instruction in instructions.iter() {
             match instruction.0.as_u8() {
-                0x60..=0x7F => {
+                0x01 => todo!("ADD"),
+                0x02 => todo!("MUL"),
+                0x03 => todo!("SUB"),
+                0x04 => todo!("DIV"),
+                0x05 => todo!("SDIV"),
+                0x06 => todo!("MOD"),
+                0x07 => todo!("SMOD"),
+                0x08 => todo!("ADDMOD"),
+                0x09 => todo!(""),
+                0x0A => todo!(""),
+                0x0B => todo!(""),
+                0x10 => todo!(""),
+                0x11 => todo!(""),
+                0x12 => todo!(""),
+                0x13 => todo!(""),
+                0x14 => todo!(""),
+                0x15 => todo!(""),
+                0x16 => todo!(""),
+                0x17 => todo!(""),
+                0x18 => todo!(""),
+                0x19 => todo!(""),
+
+
+                0x60..=0x7F => { // PUSH operations
                     println!(
                         "PUSH{} 0x{}",
                         instruction.0.as_u8() - 95,
