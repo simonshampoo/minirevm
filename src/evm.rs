@@ -73,12 +73,12 @@ impl EVM {
                     println!("SWAP{}", instruction.0.as_u8() - 143,);
                     self.stack.swap(swap_n);
                 }
-                0x51 => {
+                opcodes::MSTORE => {
                     let offset = self.stack.pop();
                     let data = self.stack.pop();
                     self.mstore(offset, data);
                 }
-                0x55 => {
+                opcodes::SSTORE => {
                     let key = self.stack.pop();
                     let value = self.stack.pop();
                     self.sstore(key, value);
@@ -95,9 +95,7 @@ impl EVM {
         std::process::exit(0)
     }
 
-    fn add(a: Bytes32, b: Bytes32) {
-
-    }
+    fn add(a: Bytes32, b: Bytes32) {}
 
     fn mstore(&mut self, offset: Bytes32, data: Bytes32) {
         self.memory.mstore(offset, data);

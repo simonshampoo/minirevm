@@ -1,17 +1,12 @@
+use crate::types::Bytes32;
 use evm::Opcode;
 use std::{fmt::Write, num::ParseIntError};
-use crate::types::Bytes32;
 
 pub fn byte_to_u8(b: Bytes32) -> u8 {
-    
-    (b & 0x000000ff )as u8
-
+    (b & Bytes32(0x000000ff)).0
 }
 
-pub fn u8_to_byte(n: u8) -> Bytes2 {
-
-
-}
+pub fn u8_to_byte(n: u8) -> Bytes32 {}
 
 pub fn decode_hex(s: &str) -> Result<Vec<u64>, ParseIntError> {
     (0..s.len())
@@ -28,10 +23,7 @@ pub fn encode_hex(bytes: &[u8]) -> String {
     s
 }
 
-pub fn bytes_to_u8(bytes: &[u8]) -> u8 {
-
-
-}
+pub fn bytes_to_u8(bytes: &[u8]) -> u8 {}
 
 pub fn match_stackop_n(opcode: Opcode) -> usize {
     match opcode {

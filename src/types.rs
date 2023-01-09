@@ -1,4 +1,5 @@
 use evm::Opcode;
+
 use std::{fmt, ops};
 
 #[derive(Debug, Eq, Hash, PartialEq, Clone)]
