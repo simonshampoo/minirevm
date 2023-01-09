@@ -2,10 +2,8 @@ use crate::memory::Memory;
 use crate::stack::Stack;
 use crate::storage::Storage;
 use crate::types::{Bytes32, Instruction};
-use crate::utils::{decode_hex, match_stackop_n};
+use crate::utils::match_stackop_n;
 use evm::Opcode;
-use hex::decode;
-use std::u64;
 #[allow(dead_code)]
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct EVM {
@@ -55,16 +53,20 @@ impl EVM {
                     println!("SWAP{}", instruction.0.as_u8() - 143,);
                     self.stack.swap(swap_n);
                 }
-                //                0x51 =>  {
-                //                    self.mstore(
-                //                        self.stack.pop(),
-                //                        self.stack.pop(),
-                //                    );
-                //                },
-                //                0x55 => {
-                //                    self.sstore(self.stack.pop(), self.stack.pop());
-                //                }
-                _ => (),
+                0x51 => {
+                    let offset = self.stack.pop();
+                    let data = self.stack.pop();
+                    self.mstore(offset, data);
+                }
+                0x55 => {
+                    let key = self.stack.pop(); 
+                    let value = self.stack.pop(); 
+                    self.sstore(key, value);
+                }
+                _ => {
+                    println!("## STACK STATE ##");
+                    self.print_stack()
+                }
             }
         }
     }
@@ -73,7 +75,7 @@ impl EVM {
         self.memory.mstore(offset, data);
     }
 
-    fn mload(&self, offset: usize) {
+    fn mload(&self, offset: Bytes32) {
         self.memory.mload(offset);
     }
 

@@ -49,7 +49,7 @@ impl Stack {
         }
 
         let peek_index = self.size() - position - 1;
-        if (self.size() < peek_index) {
+        if self.size() < peek_index {
             panic!("{} FUCKKK", peek_index)
         }
         let duplicated_val = self.stack[peek_index].clone();

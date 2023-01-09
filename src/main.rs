@@ -16,8 +16,6 @@ fn main() {
     let mut evm = EVM::new();
 
     evm.execute_bytecode(instructions);
-    
-    evm.print_stack();
 
     evm.print_memory();
 

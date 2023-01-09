@@ -11,7 +11,7 @@ struct Instr(Instruction);
 impl fmt::Display for Bytes32 {
    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
        self.0.iter().fold(Ok(()), |r, b| {
-           r.and_then(|_| write!(f, "{}, ", b))
+           r.and_then(|_| write!(f, "{:x?}", b))
        })
    } 
 }
