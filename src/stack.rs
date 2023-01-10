@@ -47,12 +47,8 @@ impl Stack {
         if position > 16 {
             println!("not supported")
         }
-
-        let peek_index = self.size() - position - 1;
-        if self.size() < peek_index {
-            panic!("{} FUCKKK", peek_index)
-        }
-        let duplicated_val = self.stack[peek_index].clone();
+        
+        let duplicated_val = self.stack[self.size() - position].clone();
         self.stack.push(duplicated_val);
     }
 
@@ -67,7 +63,7 @@ impl Stack {
 
 impl fmt::Display for Stack {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        writeln!(f, "## STACK ##");
+        let _ = writeln!(f, "## STACK ##");
         self.stack
             .iter()
             .rev()

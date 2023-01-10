@@ -44,15 +44,15 @@ impl Parser {
             }
         }
         //  println!("Instructions received: {:x?}", self.instructions);
-        let max_for_padding = self
-            .instructions
-            .iter()
-            .map(|(_, v)| v)
-            .max()
-            .unwrap()
-            .as_ref()
-            .unwrap()
-            .len();
+//        let max_for_padding = self
+//            .instructions
+//            .iter()
+//            .map(|(_, v)| v)
+//            .max()
+//            .unwrap()
+//            .as_ref()
+//            .unwrap()
+//            .len();
         println!(
             "================================================================================="
         );

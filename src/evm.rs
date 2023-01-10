@@ -26,28 +26,27 @@ impl EVM {
     pub fn execute_bytecode(&mut self, instructions: &Vec<Instruction>) {
         for instruction in instructions.iter() {
             match instruction.0.as_u8() {
-                0x01 => todo!("ADD"),
-                0x02 => todo!("MUL"),
-                0x03 => todo!("SUB"),
-                0x04 => todo!("DIV"),
-                0x05 => todo!("SDIV"),
-                0x06 => todo!("MOD"),
-                0x07 => todo!("SMOD"),
-                0x08 => todo!("ADDMOD"),
-                0x09 => todo!("MULMOD"),
-                0x0A => todo!(""),
-                0x0B => todo!(""),
-                0x10 => todo!(""),
-                0x11 => todo!(""),
-                0x12 => todo!(""),
-                0x13 => todo!(""),
-                0x14 => todo!(""),
-                0x15 => todo!(""),
-                0x16 => todo!(""),
-                0x17 => todo!(""),
-                0x18 => todo!(""),
-                0x19 => todo!(""),
-
+                //                0x01 => todo!("ADD"),
+                //                0x02 => todo!("MUL"),
+                //                0x03 => todo!("SUB"),
+                //                0x04 => todo!("DIV"),
+                //                0x05 => todo!("SDIV"),
+                //                0x06 => todo!("MOD"),
+                //                0x07 => todo!("SMOD"),
+                //                0x08 => todo!("ADDMOD"),
+                //                0x09 => todo!("MULMOD"),
+                //                0x0A => todo!(""),
+                //                0x0B => todo!(""),
+                //                0x10 => todo!(""),
+                //                0x11 => todo!(""),
+                //                0x12 => todo!(""),
+                //                0x13 => todo!(""),
+                //                0x14 => todo!(""),
+                //                0x15 => todo!(""),
+                //                0x16 => todo!(""),
+                //                0x17 => todo!(""),
+                //                0x18 => todo!(""),
+                //                0x19 => todo!(""),
                 opcodes::PUSH1..=opcodes::PUSH32 => {
                     // PUSH operations
                     println!(
@@ -62,9 +61,13 @@ impl EVM {
                             .unwrap(),
                     ));
                 }
+
+                opcodes::POP => {
+                    self.stack.pop();
+                }
                 opcodes::DUP1..=opcodes::DUP16 => {
                     let dup_n = match_stackop_n(Opcode(instruction.0.as_u8()));
-                    println!("DUP{}", instruction.0.as_u8() - 127,);
+                    println!("dup_n = {}", dup_n);
                     self.stack.dup(dup_n);
                 }
 
@@ -95,7 +98,10 @@ impl EVM {
         std::process::exit(0)
     }
 
-    fn add(a: Bytes32, b: Bytes32) {}
+    fn add(a: Bytes32, b: Bytes32) {
+       
+
+    }
 
     fn mstore(&mut self, offset: Bytes32, data: Bytes32) {
         self.memory.mstore(offset, data);

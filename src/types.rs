@@ -1,13 +1,16 @@
 use evm::Opcode;
-
+use num_bigint::BigUint;
 use std::{fmt, ops};
 
-#[derive(Debug, Eq, Hash, PartialEq, Clone)]
-pub struct Bytes32(pub Vec<u8>);
+
+
 type PushData = String;
 pub type Instruction = (Opcode, Option<PushData>);
 
-struct Instr(Instruction);
+
+
+#[derive(Debug, Eq, Hash, PartialEq, Clone)]
+pub struct Bytes32(pub Vec<u8>);
 
 impl fmt::Display for Bytes32 {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -26,13 +29,19 @@ impl Bytes32 {
 impl ops::Add for Bytes32 {
     type Output = Self;
     fn add(self, other: Self) -> Self {
-        Bytes32(
-            self.0
-                .iter()
-                .zip(other.0.iter())
-                .map(|(b0, b1)| b0 - b1)
-                .collect(),
-        )
+        let a = BigUint::from_bytes_be(self.0.as_slice());
+
+        let b = BigUint::from_bytes_be(other.0.as_slice());
+
+        let sum = a + b;
+        Bytes32(BigUint::to_bytes_be(&sum))
+        //Bytes32(
+        //    self.0
+        //        .iter()
+        //        .zip(other.0.iter())
+        //        .map(|(b0, b1)| b0 - b1)
+        //        .collect(),
+        //)
     }
 }
 
@@ -40,26 +49,40 @@ impl ops::Sub for Bytes32 {
     type Output = Self;
 
     fn sub(self, other: Self) -> Self {
-        Bytes32(
-            self.0
-                .iter()
-                .zip(other.0.iter())
-                .map(|(b0, b1)| b0 - b1)
-                .collect(),
-        )
+        let a = BigUint::from_bytes_be(self.0.as_slice());
+
+        let b = BigUint::from_bytes_be(other.0.as_slice());
+
+        let sum = a - b;
+        Bytes32(BigUint::to_bytes_be(&sum))
+
+        //        Bytes32(
+        //            self.0
+        //                .iter()
+        //                .zip(other.0.iter())
+        //                .map(|(b0, b1)| b0 - b1)
+        //                .collect(),
+        //        )
     }
 }
 impl ops::Mul for Bytes32 {
     type Output = Self;
 
     fn mul(self, other: Self) -> Self {
-        Bytes32(
-            self.0
-                .iter()
-                .zip(other.0.iter())
-                .map(|(b0, b1)| b0 - b1)
-                .collect(),
-        )
+        let a = BigUint::from_bytes_be(self.0.as_slice());
+
+        let b = BigUint::from_bytes_be(other.0.as_slice());
+
+        let sum = a * b;
+        Bytes32(BigUint::to_bytes_be(&sum))
+
+        //        Bytes32(
+        //            self.0
+        //                .iter()
+        //                .zip(other.0.iter())
+        //                .map(|(b0, b1)| b0 - b1)
+        //                .collect(),
+        //        )
     }
 }
 
@@ -67,13 +90,20 @@ impl ops::Div for Bytes32 {
     type Output = Self;
 
     fn div(self, other: Self) -> Self {
-        Bytes32(
-            self.0
-                .iter()
-                .zip(other.0.iter())
-                .map(|(b0, b1)| b0 & b1)
-                .collect(),
-        )
+        let a = BigUint::from_bytes_be(self.0.as_slice());
+
+        let b = BigUint::from_bytes_be(other.0.as_slice());
+
+        let sum = a / b;
+        Bytes32(BigUint::to_bytes_be(&sum))
+
+        //        Bytes32(
+        //            self.0
+        //                .iter()
+        //                .zip(other.0.iter())
+        //                .map(|(b0, b1)| b0 & b1)
+        //                .collect(),
+        //        )
     }
 }
 
@@ -86,6 +116,34 @@ impl ops::BitAnd for Bytes32 {
                 .iter()
                 .zip(rhs.0.iter())
                 .map(|(b0, b1)| b0 & b1)
+                .collect(),
+        )
+    }
+}
+
+impl ops::BitOr for Bytes32 {
+    type Output = Self;
+
+    fn bitor(self, rhs: Self) -> Self::Output {
+        Bytes32(
+            self.0
+                .iter()
+                .zip(rhs.0.iter())
+                .map(|(b0, b1)| b0 | b1)
+                .collect(),
+        )
+    }
+}
+
+impl ops::BitXor for Bytes32 {
+    type Output = Self;
+
+    fn bitxor(self, rhs: Self) -> Self::Output {
+        Bytes32(
+            self.0
+                .iter()
+                .zip(rhs.0.iter())
+                .map(|(b0, b1)| b0 ^ b1)
                 .collect(),
         )
     }

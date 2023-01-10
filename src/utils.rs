@@ -1,14 +1,14 @@
 use crate::types::Bytes32;
 use evm::Opcode;
+use num_bigint::BigUint;
 use std::{fmt::Write, num::ParseIntError};
 
-pub fn byte_to_u8(b: Bytes32) -> u8 {
-    todo!()
-    //(b & Bytes32(0x000000ff)).0
+pub fn byte_to_biguint(b: Bytes32) -> BigUint {
+    BigUint::from_bytes_be(b.0.as_slice())
 }
 
-pub fn u8_to_byte(n: u8) -> Bytes32 {
-    todo!()
+pub fn biguint_to_byte(n: &BigUint) -> Bytes32 {
+    Bytes32(BigUint::to_bytes_be(n))
 }
 
 pub fn decode_hex(s: &str) -> Result<Vec<u64>, ParseIntError> {
