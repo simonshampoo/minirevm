@@ -17,6 +17,8 @@ fn main() {
 
     evm.execute_bytecode(instructions);
 
+    evm.print_stack();
+    
     evm.print_memory();
 
     evm.print_storage();

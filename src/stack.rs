@@ -67,8 +67,10 @@ impl Stack {
 
 impl fmt::Display for Stack {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        writeln!(f, "## STACK ##");
         self.stack
             .iter()
+            .rev()
             .fold(Ok(()), |r, b| r.and_then(|_| writeln!(f, "{}", b)))
     }
 }
