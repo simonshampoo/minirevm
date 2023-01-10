@@ -47,7 +47,8 @@ impl Stack {
         if position > 16 {
             println!("not supported")
         }
-        
+        let idx = self.size() - position; 
+        println!("idx = {}", idx); 
         let duplicated_val = self.stack[self.size() - position].clone();
         self.stack.push(duplicated_val);
     }

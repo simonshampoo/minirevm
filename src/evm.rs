@@ -98,10 +98,136 @@ impl EVM {
         std::process::exit(0)
     }
 
-    fn add(a: Bytes32, b: Bytes32) {
-       
-
+    fn ADD(a: Bytes32, b: Bytes32) -> Bytes32 {
+        a + b
     }
+
+    fn SUB(a: Bytes32, b: Bytes32) -> Bytes32 {
+        a - b
+    }
+
+    fn MUL(a: Bytes32, b: Bytes32) -> Bytes32 {
+        a * b
+    }
+    fn DIV(a: Bytes32, b: Bytes32) -> Bytes32 {
+        a / b
+    }
+    fn SDIV(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    fn MOD(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    fn SMOD(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    fn ADDMOD(a: Bytes32, b: Bytes32, N: Bytes32) -> Bytes32 {}
+    fn MULMOD(a: Bytes32, b: Bytes32, N: Bytes32) -> Bytes32 {}
+    fn EXP(a: Bytes32, exponent: Bytes32) -> Bytes32 {}
+    fn SIGNEXTEND(b: Bytes32, x: Bytes32) -> Bytes32 {}
+    fn LT(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    fn GT(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    fn SLT(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    fn SGT(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    fn EQ(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    fn ISZERO(a: Bytes32) -> Bytes32 {}
+    fn AND(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    fn OR(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    fn XOR(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    fn NOT(a: Bytes32) -> Bytes32 {}
+    fn BYTE(i: Bytes32, x: Bytes32) -> Bytes32 {}
+    fn SHL(shift: Bytes32, value: Bytes32) -> Bytes32 {}
+    fn SHR(shift: Bytes32, value: Bytes32) {}
+    fn SAR(shift: Bytes32, value: Bytes32) {}
+    fn SHA3(shift: Bytes32, value: Bytes32) {}
+    fn ADDRESS() -> Bytes32 {}
+    fn BALANCE(adress: Bytes32) -> Bytes32 {}
+    fn ORIGIN() -> Bytes32 {}
+    fn CALLER() -> Bytes32 {}
+    fn CALLVALUE() -> Bytes32 {}
+    fn CALLDATALOAD(i: Bytes32) -> Bytes32 {}
+    fn CALLDATASIZE() -> Bytes32 {}
+    fn CALLDATACOPY(destOffset: Bytes32, offset: Bytes32, size: Bytes32) -> Bytes32 {}
+    fn CODESIZE() -> Bytes32 {}
+    fn COPDECOPY(destOffset: Bytes32, offset: Bytes32, size: Bytes32) -> Bytes32 {}
+    fn GASPRICE() -> Bytes32 {}
+    fn EXTCODESIZE(address: Bytes32) -> Bytes32 {}
+    fn EXTCODECOPY(
+        address: Bytes32,
+        destOffset: Bytes32,
+        offset: Bytes32,
+        size: Bytes32,
+    ) -> Bytes32 {
+    }
+    fn RETURNDATASIZE() -> Bytes32 {}
+    fn RETURNDATACOPY(destOffset: Bytes32, offset:Bytes32, size: Bytes32) -> Bytes32 {}
+    fn EXTCODEHASH(address: Bytes32) -> Bytes32 {}
+    fn BLOCKHASH(blockNumber: Bytes32) -> Bytes32 {}
+    fn COINBASE() -> Bytes32 {}
+    fn TIMESTAMP() -> Bytes32 {}
+    fn NUMBER() -> Bytes32 {}
+    fn DIFFICULTY() -> Bytes32 {}
+    fn GASLIMIT() -> Bytes32 {}
+    fn CHAINID() -> Bytes32 {}
+    fn SELFBALANCE() -> Bytes32 {}
+    fn BASEFEE() -> Bytes32 {}
+    fn MLOAD(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    fn MSTORE(&mut self, offset: Bytes32, value: Bytes32) {}
+    fn MSTORE8(&mut self, offset: Bytes32, value: Bytes32) {
+        // TODO
+        // redo memory as to copy bytes rather than have each bytes32 occupy an index
+        // endianness for mstore8
+        // endianess for all other types
+        todo!("COMPLETELY REDO MEMORY")
+    }
+    fn SLOAD(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    fn SSTORE(&mut self, a: Bytes32, b: Bytes32) -> Bytes32 {}
+    fn JUMP(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    fn JUMPI(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    fn PC() -> Bytes32 {}
+    fn MSIZE() -> Bytes32 {}
+    fn GAS() -> Bytes32 {}
+    fn JUMPDEST() -> Bytes32 {}
+    fn PUSH1(&mut self, a: Bytes32) -> Bytes32 {}
+    fn DUP1(&mut self, a: Bytes32) -> Bytes32 {}
+    fn SWAP1(&mut self, a: Bytes32) -> Bytes32 {}
+    fn LOG0(offset: Bytes32, size: Bytes32, topic1: Bytes32) -> Bytes32 {}
+    fn CREATE(value: Bytes32, offset: Bytes32, size: Bytes32) -> Bytes32 {}
+    fn CALL(
+        gas: Bytes32,
+        address: Bytes32,
+        argsOffset: Bytes32,
+        argsSize: Bytes32,
+        retOffset: Bytes32,
+        retSize: Bytes32,
+    ) -> Bytes32 {
+    }
+    fn CALLCODE(
+        gas: Bytes32,
+        address: Bytes32,
+        argsOffset: Bytes32,
+        argsSize: Bytes32,
+        retOffset: Bytes32,
+        retSize: Bytes32,
+    ) -> Bytes32 {
+    }
+    fn RETURN(offset: Bytes32, size: Bytes32) -> Bytes32 {}
+    fn DELEGATECALL(
+        gas: Bytes32,
+        address: Bytes32,
+        argsOffset: Bytes32,
+        argsSize: Bytes32,
+        retOffset: Bytes32,
+        retSize: Bytes32,
+    ) -> Bytes32 {
+    }
+    fn CREATE2(value: Bytes32, offset: Bytes32, size: Bytes32, salt: Bytes32) -> Bytes32 {}
+    fn STATICCALL(
+        gas: Bytes32,
+        address: Bytes32,
+        argsOffset: Bytes32,
+        argsSize: Bytes32,
+        retOffset: Bytes32,
+        retSize: Bytes32,
+    ) -> Bytes32 {
+    }
+    fn REVERT(offset: Bytes32, size: Bytes32) -> Bytes32 {}
+    fn INVALID() -> () {}
+    fn SELFDESTRUCT(address: Bytes32) -> Bytes32 {}
 
     fn mstore(&mut self, offset: Bytes32, data: Bytes32) {
         self.memory.mstore(offset, data);
