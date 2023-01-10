@@ -112,19 +112,53 @@ impl EVM {
     fn DIV(a: Bytes32, b: Bytes32) -> Bytes32 {
         a / b
     }
-    fn SDIV(a: Bytes32, b: Bytes32) -> Bytes32 {}
-    fn MOD(a: Bytes32, b: Bytes32) -> Bytes32 {}
-    fn SMOD(a: Bytes32, b: Bytes32) -> Bytes32 {}
-    fn ADDMOD(a: Bytes32, b: Bytes32, N: Bytes32) -> Bytes32 {}
-    fn MULMOD(a: Bytes32, b: Bytes32, N: Bytes32) -> Bytes32 {}
-    fn EXP(a: Bytes32, exponent: Bytes32) -> Bytes32 {}
-    fn SIGNEXTEND(b: Bytes32, x: Bytes32) -> Bytes32 {}
-    fn LT(a: Bytes32, b: Bytes32) -> Bytes32 {}
-    fn GT(a: Bytes32, b: Bytes32) -> Bytes32 {}
-    fn SLT(a: Bytes32, b: Bytes32) -> Bytes32 {}
-    fn SGT(a: Bytes32, b: Bytes32) -> Bytes32 {}
-    fn EQ(a: Bytes32, b: Bytes32) -> Bytes32 {}
-    fn ISZERO(a: Bytes32) -> Bytes32 {}
+    fn SDIV(a: Bytes32, b: Bytes32) -> Bytes32 {
+        // TODO fix this? wtf is SDIV
+        a / b
+    }
+    fn MOD(a: Bytes32, b: Bytes32) -> Bytes32 {
+        a % b
+    }
+    fn SMOD(a: Bytes32, b: Bytes32) -> Bytes32 {
+        a % b
+    }
+    fn ADDMOD(a: Bytes32, b: Bytes32, N: Bytes32) -> Bytes32 {
+        (a + b) % N
+    }
+    fn MULMOD(a: Bytes32, b: Bytes32, N: Bytes32) -> Bytes32 {
+        (a * b) % n
+    }
+    fn EXP(a: Bytes32, exponent: Bytes32) -> Bytes32 {
+        todo!()
+    }
+    fn SIGNEXTEND(b: Bytes32, x: Bytes32) -> Bytes32 {
+        todo!()
+    }
+    fn LT(a: Bytes32, b: Bytes32) -> Bytes32 {
+        a < b
+    }
+    fn GT(a: Bytes32, b: Bytes32) -> Bytes32 {
+        a > b
+    }
+    fn SLT(a: Bytes32, b: Bytes32) -> Bytes32 {
+        //TODO
+        a < b
+    }
+    fn SGT(a: Bytes32, b: Bytes32) -> Bytes32 {
+        //TODO
+        a > b
+    }
+    fn EQ(a: Bytes32, b: Bytes32) -> Bytes32 {
+        a == b
+    }
+    fn ISZERO(a: Bytes32) -> Bytes32 {
+        //TODO
+        if a == 0 {
+            1
+        } else {
+            0
+        }
+    }
     fn AND(a: Bytes32, b: Bytes32) -> Bytes32 {}
     fn OR(a: Bytes32, b: Bytes32) -> Bytes32 {}
     fn XOR(a: Bytes32, b: Bytes32) -> Bytes32 {}
@@ -154,7 +188,7 @@ impl EVM {
     ) -> Bytes32 {
     }
     fn RETURNDATASIZE() -> Bytes32 {}
-    fn RETURNDATACOPY(destOffset: Bytes32, offset:Bytes32, size: Bytes32) -> Bytes32 {}
+    fn RETURNDATACOPY(destOffset: Bytes32, offset: Bytes32, size: Bytes32) -> Bytes32 {}
     fn EXTCODEHASH(address: Bytes32) -> Bytes32 {}
     fn BLOCKHASH(blockNumber: Bytes32) -> Bytes32 {}
     fn COINBASE() -> Bytes32 {}

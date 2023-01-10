@@ -1,6 +1,8 @@
 use minirevm::evm::EVM;
 use minirevm::parser::Parser;
+use minirevm::utils::byte_to_biguint;
 use std::env;
+
 fn main() {
     let args: Vec<String> = env::args().collect();
 
@@ -18,7 +20,7 @@ fn main() {
     evm.execute_bytecode(instructions);
 
     evm.print_stack();
-    
+
     evm.print_memory();
 
     evm.print_storage();
