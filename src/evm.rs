@@ -126,7 +126,7 @@ impl EVM {
         (a + b) % N
     }
     fn MULMOD(a: Bytes32, b: Bytes32, N: Bytes32) -> Bytes32 {
-        (a * b) % n
+        (a * b) % N 
     }
     fn EXP(a: Bytes32, exponent: Bytes32) -> Bytes32 {
         todo!()
@@ -159,17 +159,31 @@ impl EVM {
             0
         }
     }
-    fn AND(a: Bytes32, b: Bytes32) -> Bytes32 {}
-    fn OR(a: Bytes32, b: Bytes32) -> Bytes32 {}
-    fn XOR(a: Bytes32, b: Bytes32) -> Bytes32 {}
-    fn NOT(a: Bytes32) -> Bytes32 {}
+    fn AND(a: Bytes32, b: Bytes32) -> Bytes32 {
+        a & b
+
+    }
+    fn OR(a: Bytes32, b: Bytes32) -> Bytes32 {
+         a | b 
+
+    }
+    fn XOR(a: Bytes32, b: Bytes32) -> Bytes32 {
+        a ^ b
+    }
+    fn NOT(a: Bytes32) -> Bytes32 {
+        ~a 
+    }
     fn BYTE(i: Bytes32, x: Bytes32) -> Bytes32 {}
     fn SHL(shift: Bytes32, value: Bytes32) -> Bytes32 {}
     fn SHR(shift: Bytes32, value: Bytes32) {}
     fn SAR(shift: Bytes32, value: Bytes32) {}
     fn SHA3(shift: Bytes32, value: Bytes32) {}
-    fn ADDRESS() -> Bytes32 {}
-    fn BALANCE(adress: Bytes32) -> Bytes32 {}
+    fn ADDRESS() -> Bytes32 {
+        println!("not yet implemented")
+    }
+    fn BALANCE(adress: Bytes32) -> Bytes32 {
+        println!("not yet implemented") 
+    }
     fn ORIGIN() -> Bytes32 {}
     fn CALLER() -> Bytes32 {}
     fn CALLVALUE() -> Bytes32 {}
@@ -239,7 +253,9 @@ impl EVM {
         retSize: Bytes32,
     ) -> Bytes32 {
     }
-    fn RETURN(offset: Bytes32, size: Bytes32) -> Bytes32 {}
+    fn RETURN(&self, offset: Bytes32, size: Bytes32) -> Bytes32 {
+       self.memory[offset..offset+size] 
+    }
     fn DELEGATECALL(
         gas: Bytes32,
         address: Bytes32,

@@ -3,12 +3,9 @@ use evm::Opcode;
 use num_bigint::BigUint;
 use std::{fmt::Write, num::ParseIntError};
 
-pub fn byte_to_biguint(b: Bytes32) -> BigUint {
-    BigUint::from_bytes_be(b.0.as_slice())
-}
 
 pub fn biguint_to_byte(n: &BigUint) -> Bytes32 {
-    Bytes32(BigUint::to_bytes_be(n))
+    Bytes32(BigUint::to_bytes_be(n).to_vec())
 }
 
 pub fn decode_hex(s: &str) -> Result<Vec<u64>, ParseIntError> {

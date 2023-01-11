@@ -1,12 +1,10 @@
 use evm::Opcode;
 use num_bigint::BigUint;
+use num_bigint::BigUint;
 use std::{fmt, ops};
-
-
 
 type PushData = String;
 pub type Instruction = (Opcode, Option<PushData>);
-
 
 #[derive(Debug, Eq, Hash, PartialEq, Clone)]
 pub struct Bytes32(pub Vec<u8>);
@@ -22,6 +20,9 @@ impl fmt::Display for Bytes32 {
 impl Bytes32 {
     pub fn new() -> Self {
         Bytes32(Vec::<u8>::new())
+    }
+    pub fn to_biguint(b: Self) -> num_bigint::BigUint {
+        BigUint::from_bytes_be(b.0.as_slice())
     }
 }
 
@@ -145,5 +146,18 @@ impl ops::BitXor for Bytes32 {
                 .map(|(b0, b1)| b0 ^ b1)
                 .collect(),
         )
+    }
+}
+
+impl ops::Rem for Bytes32 {
+    type Output = Self;
+
+    fn rem(self, rhs: Self) -> Self::Output {
+        let a = BigUint::from_bytes_be(self.0.as_slice());
+
+        let b = BigUint::from_bytes_be(rhs.0.as_slice());
+
+        let rem = a % b;
+        Bytes32(BigUint::to_bytes_be(&rem))
     }
 }
