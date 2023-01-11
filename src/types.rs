@@ -1,12 +1,11 @@
 use evm::Opcode;
 use num_bigint::BigUint;
-use num_bigint::BigUint;
 use std::{fmt, ops};
 
 type PushData = String;
 pub type Instruction = (Opcode, Option<PushData>);
 
-#[derive(Debug, Eq, Hash, PartialEq, Clone)]
+#[derive(Debug, Eq, Hash, PartialEq, Clone, PartialOrd)]
 pub struct Bytes32(pub Vec<u8>);
 
 impl fmt::Display for Bytes32 {
@@ -160,4 +159,14 @@ impl ops::Rem for Bytes32 {
         let rem = a % b;
         Bytes32(BigUint::to_bytes_be(&rem))
     }
+}
+
+impl ops::Not for Bytes32 {
+    type Output = self; 
+
+    fn not(self) -> Self::Output {
+        let a = BigUint::from_bytes_be(self.0.as_slice());
+        !a;
+    }
+
 }
