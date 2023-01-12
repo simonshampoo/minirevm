@@ -20,8 +20,17 @@ impl Bytes32 {
     pub fn new() -> Self {
         Bytes32(Vec::<u8>::new())
     }
+
+    pub fn from_bytes_be(b: Vec<u8>) -> Self {
+        Bytes32(b.to_vec())
+    }
+
     pub fn to_biguint(b: Self) -> num_bigint::BigUint {
         BigUint::from_bytes_be(b.0.as_slice())
+    }
+
+    pub fn from_biguint(b: BigUint) -> Self {
+        Bytes32(b.to_bytes_be())
     }
 }
 
@@ -34,13 +43,6 @@ impl ops::Add for Bytes32 {
 
         let sum = a + b;
         Bytes32(BigUint::to_bytes_be(&sum))
-        //Bytes32(
-        //    self.0
-        //        .iter()
-        //        .zip(other.0.iter())
-        //        .map(|(b0, b1)| b0 - b1)
-        //        .collect(),
-        //)
     }
 }
 
@@ -162,11 +164,20 @@ impl ops::Rem for Bytes32 {
 }
 
 impl ops::Not for Bytes32 {
-    type Output = self; 
+    type Output = Self;
 
     fn not(self) -> Self::Output {
         let a = BigUint::from_bytes_be(self.0.as_slice());
-        !a;
+        Bytes32::new()
     }
+}
+#[cfg(test)]
+mod tests {
 
+    #[test]
+    fn test_add() {
+        let a = Bytes32::new() ;
+
+        assert_eq!(result, 4);
+    }
 }
