@@ -17,7 +17,6 @@ impl Memory {
 
     pub fn mstore(&mut self, offset: &str, val: Bytes32) {
         let off = u64::from_str_radix(offset, 16).unwrap() as usize;
-        println!("MEMORY {:?}", self.memory);
         if off >= self.memory.len() {
             vec![self.memory, val.0].concat();
         } else {
