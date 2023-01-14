@@ -1,6 +1,7 @@
 use evm::Opcode;
 use num_bigint::BigUint;
 use std::{fmt, ops};
+use primitive_types::U256;
 
 type PushData = String;
 pub type Instruction = (Opcode, Option<PushData>);
