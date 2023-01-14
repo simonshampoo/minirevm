@@ -1437,6 +1437,7 @@ dependencies = [
  "evm",
  "hex",
  "num-bigint",
+ "primitive-types",
 ]
 
 [[package]]
