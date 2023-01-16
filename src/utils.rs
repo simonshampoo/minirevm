@@ -3,7 +3,6 @@ use evm::Opcode;
 use num_bigint::BigUint;
 use std::{fmt::Write, num::ParseIntError};
 
-
 pub fn biguint_to_byte(n: &BigUint) -> Bytes32 {
     Bytes32(BigUint::to_bytes_be(n).to_vec())
 }
