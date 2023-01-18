@@ -24,5 +24,4 @@ fn main() {
     evm.print_memory();
 
     evm.print_storage();
-
 }
