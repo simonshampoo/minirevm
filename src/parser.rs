@@ -1,7 +1,7 @@
 use crate::types::Instruction;
 use evm::Opcode;
-use std::i64;
 use std::fmt;
+use std::i64;
 pub struct Parser {
     instructions: Vec<Instruction>,
 }
@@ -44,15 +44,15 @@ impl Parser {
             }
         }
         //  println!("Instructions received: {:x?}", self.instructions);
-//        let max_for_padding = self
-//            .instructions
-//            .iter()
-//            .map(|(_, v)| v)
-//            .max()
-//            .unwrap()
-//            .as_ref()
-//            .unwrap()
-//            .len();
+        //        let max_for_padding = self
+        //            .instructions
+        //            .iter()
+        //            .map(|(_, v)| v)
+        //            .max()
+        //            .unwrap()
+        //            .as_ref()
+        //            .unwrap()
+        //            .len();
         println!(
             "================================================================================="
         );
@@ -78,22 +78,18 @@ impl Parser {
 }
 
 impl fmt::Display for Parser {
-
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{} fuck", self)
-    }    
-
+    }
 }
-
 
 #[cfg(test)]
 mod tests {
 
     #[test]
     fn it_works() {
-        let result = 2+2;
+        let result = 2 + 2;
 
         assert_eq!(result, 4);
     }
-
 }
