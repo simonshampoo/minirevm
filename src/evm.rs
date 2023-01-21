@@ -13,7 +13,6 @@ pub struct EVM {
     storage: Storage,
 }
 
-#[allow(dead_code)]
 impl EVM {
     pub fn new() -> Self {
         EVM {
