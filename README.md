@@ -16,13 +16,24 @@ Output:
 
 ```
 =================================================================================
-Bytecode received: 60FF61FFFF62FFFFFF63FFFFFFFF6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+Bytecode received: 600660070200
 =================================================================================
-0x60 FF                                                                (1 bytes)
-0x61 FFFF                                                              (2 bytes)
-0x62 FFFFFF                                                            (3 bytes)
-0x63 FFFFFFFF                                                          (4 bytes)
-0x6f FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF                                  (16 bytes)
+0x60 06                                                   (1 bytes)
+0x60 07                                                   (1 bytes)
+0x2
+0x0
+=================================================================================
+PUSH1 0x06
+PUSH1 0x07
+### END OF EXECUTION ###
+Stack 2a
+
+Memory { memory: [] }
+Storage { kvstore: {} }
+Stack 2a
+
+Memory { memory: [] }
+Storage { kvstore: {} }
 =================================================================================
 ```
 
