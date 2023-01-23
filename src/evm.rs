@@ -25,7 +25,20 @@ impl EVM {
     pub fn execute_bytecode(&mut self, instructions: &Vec<Instruction>) {
         for instruction in instructions.iter() {
             match instruction.0.as_u8() {
-                //                0x01 => todo!("ADD"),
+                opcodes::ADD => {
+                    let val1 = self.stack.pop();
+
+                    let val2 = self.stack.pop();
+
+                    self.stack.push(val1 + val2);
+                }
+                opcodes::MUL => {
+                    let val1 = self.stack.pop();
+
+                    let val2 = self.stack.pop();
+
+                    self.stack.push(val1 * val2);
+                }
                 //                0x02 => todo!("MUL"),
                 //                0x03 => todo!("SUB"),
                 //                0x04 => todo!("DIV"),
@@ -78,16 +91,19 @@ impl EVM {
                 opcodes::MSTORE => {
                     let offset = self.stack.pop();
                     let data = self.stack.pop();
-                    self.mstore(offset, data);
+                    //self.mstore(offset, data);
                 }
                 opcodes::SSTORE => {
                     let key = self.stack.pop();
                     let value = self.stack.pop();
-                    self.sstore(key, value);
+                    // self.sstore(key, value);
                 }
                 _ => {
-                    println!("## STACK STATE ##");
-                    self.print_stack()
+                    println!("### END OF EXECUTION ###");
+                    self.print_stack();
+                    self.print_memory();
+                    self.print_storage();
+                        
                 }
             }
         }
@@ -127,174 +143,174 @@ impl EVM {
     fn MULMOD(a: Bytes32, b: Bytes32, N: Bytes32) -> Bytes32 {
         (a * b) % N
     }
-    fn EXP(a: Bytes32, exponent: Bytes32) -> Bytes32 {
-        todo!()
-    }
-    fn SIGNEXTEND(b: Bytes32, x: Bytes32) -> Bytes32 {
-        todo!()
-    }
-    fn LT(a: Bytes32, b: Bytes32) -> Bytes32 {
-        a < b
-    }
-    fn GT(a: Bytes32, b: Bytes32) -> Bytes32 {
-        a > b
-    }
-    fn SLT(a: Bytes32, b: Bytes32) -> Bytes32 {
-        //TODO
-        a < b
-    }
-    fn SGT(a: Bytes32, b: Bytes32) -> Bytes32 {
-        //TODO
-        a > b
-    }
-    fn EQ(a: Bytes32, b: Bytes32) -> Bytes32 {
-        a == b
-    }
-    fn ISZERO(a: Bytes32) -> Bytes32 {
-        //TODO
-        if a == 0 {
-            1
-        } else {
-            0
-        }
-    }
-    fn AND(a: Bytes32, b: Bytes32) -> Bytes32 {
-        a & b
-    }
-    fn OR(a: Bytes32, b: Bytes32) -> Bytes32 {
-        a | b
-    }
-    fn XOR(a: Bytes32, b: Bytes32) -> Bytes32 {
-        a ^ b
-    }
-    fn NOT(a: Bytes32) -> Bytes32 {
-        //~a
-    }
-    fn BYTE(i: Bytes32, x: Bytes32) -> Bytes32 {}
-    fn SHL(shift: Bytes32, value: Bytes32) -> Bytes32 {}
-    fn SHR(shift: Bytes32, value: Bytes32) {}
-    fn SAR(shift: Bytes32, value: Bytes32) {}
-    fn SHA3(shift: Bytes32, value: Bytes32) {}
-    fn ADDRESS() -> Bytes32 {
-        println!("not yet implemented")
-    }
-    fn BALANCE(adress: Bytes32) -> Bytes32 {
-        println!("not yet implemented")
-    }
-    fn ORIGIN() -> Bytes32 {}
-    fn CALLER() -> Bytes32 {}
-    fn CALLVALUE() -> Bytes32 {}
-    fn CALLDATALOAD(i: Bytes32) -> Bytes32 {}
-    fn CALLDATASIZE() -> Bytes32 {}
-    fn CALLDATACOPY(destOffset: Bytes32, offset: Bytes32, size: Bytes32) -> Bytes32 {}
-    fn CODESIZE() -> Bytes32 {}
-    fn COPDECOPY(destOffset: Bytes32, offset: Bytes32, size: Bytes32) -> Bytes32 {}
-    fn GASPRICE() -> Bytes32 {}
-    fn EXTCODESIZE(address: Bytes32) -> Bytes32 {}
-    fn EXTCODECOPY(
-        address: Bytes32,
-        destOffset: Bytes32,
-        offset: Bytes32,
-        size: Bytes32,
-    ) -> Bytes32 {
-    }
-    fn RETURNDATASIZE() -> Bytes32 {}
-    fn RETURNDATACOPY(destOffset: Bytes32, offset: Bytes32, size: Bytes32) -> Bytes32 {}
-    fn EXTCODEHASH(address: Bytes32) -> Bytes32 {}
-    fn BLOCKHASH(blockNumber: Bytes32) -> Bytes32 {}
-    fn COINBASE() -> Bytes32 {}
-    fn TIMESTAMP() -> Bytes32 {}
-    fn NUMBER() -> Bytes32 {}
-    fn DIFFICULTY() -> Bytes32 {}
-    fn GASLIMIT() -> Bytes32 {}
-    fn CHAINID() -> Bytes32 {}
-    fn SELFBALANCE() -> Bytes32 {}
-    fn BASEFEE() -> Bytes32 {}
-    fn MLOAD(a: Bytes32, b: Bytes32) -> Bytes32 {}
-    fn MSTORE(&mut self, offset: Bytes32, value: Bytes32) {}
-    fn MSTORE8(&mut self, offset: Bytes32, value: Bytes32) {
-        // TODO
-        // redo memory as to copy bytes rather than have each bytes32 occupy an index
-        // endianness for mstore8
-        // endianess for all other types
-        todo!("COMPLETELY REDO MEMORY")
-    }
-    fn SLOAD(a: Bytes32, b: Bytes32) -> Bytes32 {}
-    fn SSTORE(&mut self, a: Bytes32, b: Bytes32) -> Bytes32 {}
-    fn JUMP(a: Bytes32, b: Bytes32) -> Bytes32 {}
-    fn JUMPI(a: Bytes32, b: Bytes32) -> Bytes32 {}
-    fn PC() -> Bytes32 {}
-    fn MSIZE() -> Bytes32 {}
-    fn GAS() -> Bytes32 {}
-    fn JUMPDEST() -> Bytes32 {}
-    fn PUSH1(&mut self, a: Bytes32) -> Bytes32 {}
-    fn DUP1(&mut self, a: Bytes32) -> Bytes32 {}
-    fn SWAP1(&mut self, a: Bytes32) -> Bytes32 {}
-    fn LOG0(offset: Bytes32, size: Bytes32, topic1: Bytes32) -> Bytes32 {}
-    fn CREATE(value: Bytes32, offset: Bytes32, size: Bytes32) -> Bytes32 {}
-    fn CALL(
-        gas: Bytes32,
-        address: Bytes32,
-        argsOffset: Bytes32,
-        argsSize: Bytes32,
-        retOffset: Bytes32,
-        retSize: Bytes32,
-    ) -> Bytes32 {
-    }
-    fn CALLCODE(
-        gas: Bytes32,
-        address: Bytes32,
-        argsOffset: Bytes32,
-        argsSize: Bytes32,
-        retOffset: Bytes32,
-        retSize: Bytes32,
-    ) -> Bytes32 {
-    }
-    fn RETURN(&self, offset: Bytes32, size: Bytes32) -> Bytes32 {
-        self.memory[offset..offset + size]
-    }
-    fn DELEGATECALL(
-        gas: Bytes32,
-        address: Bytes32,
-        argsOffset: Bytes32,
-        argsSize: Bytes32,
-        retOffset: Bytes32,
-        retSize: Bytes32,
-    ) -> Bytes32 {
-    }
-    fn CREATE2(value: Bytes32, offset: Bytes32, size: Bytes32, salt: Bytes32) -> Bytes32 {}
-    fn STATICCALL(
-        gas: Bytes32,
-        address: Bytes32,
-        argsOffset: Bytes32,
-        argsSize: Bytes32,
-        retOffset: Bytes32,
-        retSize: Bytes32,
-    ) -> Bytes32 {
-    }
-    fn REVERT(offset: Bytes32, size: Bytes32) -> Bytes32 {}
-    fn INVALID() -> () {}
-    fn SELFDESTRUCT(address: Bytes32) -> Bytes32 {}
+    // fn EXP(a: Bytes32, exponent: Bytes32) -> Bytes32 {
+    //     todo!()
+    // }
+    // fn SIGNEXTEND(b: Bytes32, x: Bytes32) -> Bytes32 {
+    //     todo!()
+    // }
+    // fn LT(a: Bytes32, b: Bytes32) -> Bytes32 {
+    //     a < b
+    // }
+    // fn GT(a: Bytes32, b: Bytes32) -> Bytes32 {
+    //     a > b
+    // }
+    // fn SLT(a: Bytes32, b: Bytes32) -> Bytes32 {
+    //     //TODO
+    //     a < b
+    // }
+    // fn SGT(a: Bytes32, b: Bytes32) -> Bytes32 {
+    //     //TODO
+    //     a > b
+    // }
+    // fn EQ(a: Bytes32, b: Bytes32) -> Bytes32 {
+    //     a == b
+    // }
+    // fn ISZERO(a: Bytes32) -> Bytes32 {
+    //     //TODO
+    //     if a == 0 {
+    //         1
+    //     } else {
+    //         0
+    //     }
+    // }
+    // fn AND(a: Bytes32, b: Bytes32) -> Bytes32 {
+    //     a & b
+    // }
+    // fn OR(a: Bytes32, b: Bytes32) -> Bytes32 {
+    //     a | b
+    // }
+    // fn XOR(a: Bytes32, b: Bytes32) -> Bytes32 {
+    //     a ^ b
+    // }
+    // fn NOT(a: Bytes32) -> Bytes32 {
+    //     //~a
+    // }
+    // fn BYTE(i: Bytes32, x: Bytes32) -> Bytes32 {}
+    // fn SHL(shift: Bytes32, value: Bytes32) -> Bytes32 {}
+    // fn SHR(shift: Bytes32, value: Bytes32) {}
+    // fn SAR(shift: Bytes32, value: Bytes32) {}
+    // fn SHA3(shift: Bytes32, value: Bytes32) {}
+    // fn ADDRESS() -> Bytes32 {
+    //     println!("not yet implemented")
+    // }
+    // fn BALANCE(adress: Bytes32) -> Bytes32 {
+    //     println!("not yet implemented")
+    // }
+    // fn ORIGIN() -> Bytes32 {}
+    // fn CALLER() -> Bytes32 {}
+    // fn CALLVALUE() -> Bytes32 {}
+    // fn CALLDATALOAD(i: Bytes32) -> Bytes32 {}
+    // fn CALLDATASIZE() -> Bytes32 {}
+    // fn CALLDATACOPY(destOffset: Bytes32, offset: Bytes32, size: Bytes32) -> Bytes32 {}
+    // fn CODESIZE() -> Bytes32 {}
+    // fn COPDECOPY(destOffset: Bytes32, offset: Bytes32, size: Bytes32) -> Bytes32 {}
+    // fn GASPRICE() -> Bytes32 {}
+    // fn EXTCODESIZE(address: Bytes32) -> Bytes32 {}
+    // fn EXTCODECOPY(
+    //     address: Bytes32,
+    //     destOffset: Bytes32,
+    //     offset: Bytes32,
+    //     size: Bytes32,
+    // ) -> Bytes32 {
+    // }
+    // fn RETURNDATASIZE() -> Bytes32 {}
+    // fn RETURNDATACOPY(destOffset: Bytes32, offset: Bytes32, size: Bytes32) -> Bytes32 {}
+    // fn EXTCODEHASH(address: Bytes32) -> Bytes32 {}
+    // fn BLOCKHASH(blockNumber: Bytes32) -> Bytes32 {}
+    // fn COINBASE() -> Bytes32 {}
+    // fn TIMESTAMP() -> Bytes32 {}
+    // fn NUMBER() -> Bytes32 {}
+    // fn DIFFICULTY() -> Bytes32 {}
+    // fn GASLIMIT() -> Bytes32 {}
+    // fn CHAINID() -> Bytes32 {}
+    // fn SELFBALANCE() -> Bytes32 {}
+    // fn BASEFEE() -> Bytes32 {}
+    // fn MLOAD(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    // fn MSTORE(&mut self, offset: Bytes32, value: Bytes32) {}
+    // fn MSTORE8(&mut self, offset: Bytes32, value: Bytes32) {
+    //     // TODO
+    //     // redo memory as to copy bytes rather than have each bytes32 occupy an index
+    //     // endianness for mstore8
+    //     // endianess for all other types
+    //     todo!("COMPLETELY REDO MEMORY")
+    // }
+    // fn SLOAD(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    // fn SSTORE(&mut self, a: Bytes32, b: Bytes32) -> Bytes32 {}
+    // fn JUMP(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    // fn JUMPI(a: Bytes32, b: Bytes32) -> Bytes32 {}
+    // fn PC() -> Bytes32 {}
+    // fn MSIZE() -> Bytes32 {}
+    // fn GAS() -> Bytes32 {}
+    // fn JUMPDEST() -> Bytes32 {}
+    // fn PUSH1(&mut self, a: Bytes32) -> Bytes32 {}
+    // fn DUP1(&mut self, a: Bytes32) -> Bytes32 {}
+    // fn SWAP1(&mut self, a: Bytes32) -> Bytes32 {}
+    // fn LOG0(offset: Bytes32, size: Bytes32, topic1: Bytes32) -> Bytes32 {}
+    // fn CREATE(value: Bytes32, offset: Bytes32, size: Bytes32) -> Bytes32 {}
+    // fn CALL(
+    //     gas: Bytes32,
+    //     address: Bytes32,
+    //     argsOffset: Bytes32,
+    //     argsSize: Bytes32,
+    //     retOffset: Bytes32,
+    //     retSize: Bytes32,
+    // ) -> Bytes32 {
+    // }
+    // fn CALLCODE(
+    //     gas: Bytes32,
+    //     address: Bytes32,
+    //     argsOffset: Bytes32,
+    //     argsSize: Bytes32,
+    //     retOffset: Bytes32,
+    //     retSize: Bytes32,
+    // ) -> Bytes32 {
+    // }
+    // fn RETURN(&self, offset: Bytes32, size: Bytes32) -> Bytes32 {
+    //     self.memory[offset..offset + size]
+    // }
+    // fn DELEGATECALL(
+    //     gas: Bytes32,
+    //     address: Bytes32,
+    //     argsOffset: Bytes32,
+    //     argsSize: Bytes32,
+    //     retOffset: Bytes32,
+    //     retSize: Bytes32,
+    // ) -> Bytes32 {
+    // }
+    // fn CREATE2(value: Bytes32, offset: Bytes32, size: Bytes32, salt: Bytes32) -> Bytes32 {}
+    // fn STATICCALL(
+    //     gas: Bytes32,
+    //     address: Bytes32,
+    //     argsOffset: Bytes32,
+    //     argsSize: Bytes32,
+    //     retOffset: Bytes32,
+    //     retSize: Bytes32,
+    // ) -> Bytes32 {
+    // }
+    // fn REVERT(offset: Bytes32, size: Bytes32) -> Bytes32 {}
+    // fn INVALID() -> () {}
+    // fn SELFDESTRUCT(address: Bytes32) -> Bytes32 {}
 
-    fn mstore(&mut self, offset: Bytes32, data: Bytes32) {
-        self.memory.mstore(offset, data);
-    }
+    // fn mstore(&mut self, offset: Bytes32, data: Bytes32) {
+    //     self.memory.mstore(offset, data);
+    // }
 
-    fn mload(&self, offset: Bytes32) {
-        self.memory.mload(offset);
-    }
+    // fn mload(&self, offset: Bytes32) {
+    //     self.memory.mload(offset);
+    // }
 
-    fn sstore(&mut self, key: Bytes32, value: Bytes32) {
-        self.storage.sstore(key, value);
-    }
+    // fn sstore(&mut self, key: Bytes32, value: Bytes32) {
+    //     self.storage.sstore(key, value);
+    // }
 
-    fn push(&mut self, data: Bytes32) {
-        self.stack.push(data);
-    }
+    // fn push(&mut self, data: Bytes32) {
+    //     self.stack.push(data);
+    // }
 
-    fn pop(&mut self) {
-        self.stack.pop();
-    }
+    // fn pop(&mut self) {
+    //     self.stack.pop();
+    // }
 
     pub fn print_stack(&self) {
         println!("{}", self.stack)

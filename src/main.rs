@@ -1,6 +1,5 @@
 use minirevm::evm::EVM;
 use minirevm::parser::Parser;
-use minirevm::utils::byte_to_biguint;
 use std::env;
 
 fn main() {
